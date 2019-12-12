@@ -84,11 +84,11 @@ export default {
     submit(v) {
       this.$http
         .post(
-          `http://api.openweathermap.org/data/2.5/weather?q=${v}&units=metric&APPID=ccf0280f67bc164a41011b8b774bbb8d`,
+          `https://api.openweathermap.org/data/2.5/weather?q=${v}&units=metric&APPID=ccf0280f67bc164a41011b8b774bbb8d`,
         )
         .then((resp) => {
           this.$set(this, 'data', resp.data);
-          this.icon = `http://openweathermap.org/img/wn/${this.data.weather[0].icon}@2x.png`;
+          this.icon = `https://openweathermap.org/img/wn/${this.data.weather[0].icon}@2x.png`;
         });
     },
   },
