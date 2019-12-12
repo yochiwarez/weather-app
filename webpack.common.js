@@ -7,7 +7,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: path.join(__dirname, 'src', 'index'),
-  watch: false,
+  watch: true,
   module: {
     rules: [{
       test: /.jsx?$/,

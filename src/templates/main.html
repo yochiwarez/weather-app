@@ -1,0 +1,62 @@
+<div>
+  <div class="main">
+    <div class="row1">
+      <ul>
+        <li v-html="temp">
+        </li>
+        <li>
+          <img :src="icon" />
+        </li>
+        <li>{{data.weather[0].description}}</li>
+      </ul>
+      <ul>
+        <li>{{day}}</li>
+        <li>{{date}}</li>
+        <li>{{data.name}}</li>
+        <li>
+          <span class="unit">
+            <label>&#8451;</label>
+            <input type="radio" value="1" v-model="unit" />
+            <label>&#8457;</label>
+            <input type="radio" value="0" v-model="unit" />
+          </span>
+        </li>
+      </ul>
+    </div>
+    <div class="row2">
+      <ul>
+        <li>
+          <span>PRESSURE</span>
+          <span>{{data.main.pressure}}</span>
+        </li>
+        <li>
+          <span>HUMIDITY</span>
+          <span>{{data.main.humidity}}</span>
+        </li>
+        <li>
+          <span>WIND</span>
+          <span>{{data.wind.speed}} km/h</span>
+        </li>
+      </ul>
+    </div>
+    <div class="row3">
+      <ul>
+        <div>
+          <span>Min:</span>
+          <span v-html="minTemp"></span>
+        </div>
+        <div>
+          <span>Max:</span>
+          <span v-html="maxTemp"></span>
+        </div>
+      </ul>
+    </div>
+    <Autocomplete
+      class="autocomp"
+      :autoSelect="true"
+      :search="search"
+      @submit="submit"
+      placeholder="Search country"
+    />
+  </div>
+</div>

@@ -3,9 +3,7 @@
     <div class="main">
       <div class="row1">
         <ul>
-          <li>
-            {{data.main.temp}}
-            <span>&#8451;</span>
+          <li v-html="temp">
           </li>
           <li>
             <img :src="icon" />
@@ -16,6 +14,14 @@
           <li>{{day}}</li>
           <li>{{date}}</li>
           <li>{{data.name}}</li>
+          <li>
+            <span class="unit">
+              <label>&#8451;</label>
+              <input type="radio" value="1" v-model="unit" />
+              <label>&#8457;</label>
+              <input type="radio" value="0" v-model="unit" />
+            </span>
+          </li>
         </ul>
       </div>
       <div class="row2">
@@ -38,13 +44,11 @@
         <ul>
           <div>
             <span>Min:</span>
-            <span>{{data.main.temp_min}}</span>
-            <span>&#8451;</span>
+            <span v-html="minTemp"></span>
           </div>
           <div>
             <span>Max:</span>
-            <span>{{data.main.temp_max}}</span>
-            <span>&#8451;</span>
+            <span v-html="maxTemp"></span>
           </div>
         </ul>
       </div>
@@ -71,6 +75,7 @@ export default {
     },
     countries,
     icon: null,
+    unit: '1',
   }),
   methods: {
     search(input) {
@@ -78,7 +83,8 @@ export default {
         return [];
       }
       const rp = this.countries
-        .filter((country) => country.toLowerCase().startsWith(input.toLowerCase()));
+        .filter((country) => country
+          .toLowerCase().startsWith(input.toLowerCase()));
       return rp;
     },
     submit(v) {
@@ -112,6 +118,22 @@ export default {
       }
       today = `${dd}/${mm}/${yyyy}`;
       return today;
+    },
+    temp() {
+      const tmp = this.data.main.temp;
+      return this.unit === '1' ? `${tmp} &#8451;` : `${tmp * (9 / 5) + 32} &#8457;`;
+    },
+    minTemp() {
+      const tmp = this.data.main.temp_min;
+      return this.unit === '1'
+        ? `${tmp} &#8451;`
+        : `${tmp * (9 / 5) + 32} &#8457;`;
+    },
+    maxTemp() {
+      const tmp = this.data.main.temp_max;
+      return this.unit === '1'
+        ? `${tmp} &#8451;`
+        : `${tmp * (9 / 5) + 32} &#8457;`;
     },
   },
 };

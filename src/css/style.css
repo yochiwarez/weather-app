@@ -50,6 +50,13 @@ div.row1 ul:nth-child(1){
 
 div.row1 ul:nth-child(2){
     text-align: end;
+    position: relative;
+}
+
+div.row1 span.unit{
+    right: 0;
+    position: absolute;
+    bottom: 0;
 }
 
 div.row1 ul:nth-child(1) li{
