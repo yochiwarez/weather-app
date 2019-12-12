@@ -1,3 +1,0 @@
-[submodule "dist"]
-	path = dist
-	url = git@github.com:yochiwarez/deployed_pos_inkasfiber.git
