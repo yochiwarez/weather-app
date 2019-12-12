@@ -6,7 +6,6 @@
   <br>
   <br>
   <h3 align="center">Weather App</h3>
-
   <p align="center">
     Javascript Project
   </p>
@@ -14,16 +13,25 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
+
 Use everything we’ve been discussing to create a weather forecast site using the weather API from the previous lesson. You should be able to search for a specific location and toggle displaying the data in Fahrenheit or Celsius.
 
 
 * #### [Assignment description](https://www.theodinproject.com/courses/ruby-on-rails/lessons/forms#null)	
 <!-- * #### [Source page](https://www.newsweek.com/) -->
 
-<!-- ### Built With
+## Built With
 
-* [Bootstrap](https://getbootstrap.com)
-* [JQuery](https://jquery.com) -->
+- webpack
+- vuejs
+
+## Live Demo
+
+[Live Demo Link](https://yochiwarez.github.io/microverse/weatherapp/) 
+
+## Getting Started
+
+i need to do it again xD
 
 <!-- LICENSE -->
 ## License
