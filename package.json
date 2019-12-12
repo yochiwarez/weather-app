@@ -1,11 +1,10 @@
 {
-  "name": "pos_inkasfiber",
+  "name": "weather_app",
   "version": "1.0.0",
-  "description": "Pos inkasfiber ventas",
+  "description": "weather app",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack --config webpack.condig.js",
     "build": "webpack --config webpack.prod.js"
   },
   "repository": {

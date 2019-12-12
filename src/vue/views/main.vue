@@ -4,10 +4,13 @@
       <div class="row1">
         <ul>
           <li>
+            {{data.main.temp}}
+            <span>&#8451;</span>
+          </li>
+          <li>
             <img :src="icon" />
           </li>
           <li>{{data.weather[0].description}}</li>
-          <li>{{data.main.temp}}</li>
         </ul>
         <ul>
           <li>{{day}}</li>
@@ -22,7 +25,7 @@
             <span>{{data.main.pressure}}</span>
           </li>
           <li>
-            <span>HUMIDITY85</span>
+            <span>HUMIDITY</span>
             <span>{{data.main.humidity}}</span>
           </li>
           <li>
@@ -34,17 +37,24 @@
       <div class="row3">
         <ul>
           <div>
-            <span>Min. Temp</span>
-            <samp>{{data.main.temp_min}}</samp>
+            <span>Min:</span>
+            <span>{{data.main.temp_min}}</span>
+            <span>&#8451;</span>
           </div>
           <div>
-            <span>Max. Temp</span>
-            <samp>{{data.main.temp_max}}</samp>
+            <span>Max:</span>
+            <span>{{data.main.temp_max}}</span>
+            <span>&#8451;</span>
           </div>
         </ul>
       </div>
-      <Autocomplete class="autocomp" :search="search"
-       @submit="submit" placeholder="Search country"/>
+      <Autocomplete
+        class="autocomp"
+        :autoSelect="true"
+        :search="search"
+        @submit="submit"
+        placeholder="Search country"
+      />
     </div>
   </div>
 </template >
@@ -67,9 +77,9 @@ export default {
       if (input.length < 1) {
         return [];
       }
-      return this.countries
-        .filter((country) => country
-          .toLowerCase().startsWith(input.toLowerCase()));
+      const rp = this.countries
+        .filter((country) => country.toLowerCase().startsWith(input.toLowerCase()));
+      return rp;
     },
     submit(v) {
       this.$http
@@ -106,6 +116,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-</style>

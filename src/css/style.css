@@ -1,5 +1,17 @@
 body{
-    background: #19508a;
+    background: #5e5f61;
+    color: white;
+    font-family: Roboto, sans-serif;
+    text-transform: uppercase;
+    text-shadow: 3px 4px 6px black;
+}
+
+span{
+    margin: 2px 0 2px 0;
+}
+
+li{
+    margin: 8px 0 8px 0;
 }
 
 ul{
@@ -7,18 +19,54 @@ ul{
     padding: 0;
 }
 
+img{
+    filter:drop-shadow(5px 5px 2px #222); 
+}
+
 div.main{
-    background: gray;
-    width: 500px;
-    margin: 0 auto;
+    margin: 150px auto 0 auto;
+    background: #1f2335;
+    width: 400px;
     padding: 20px;
     border-radius: 10px;
+    box-shadow: 6px 5px 20px rgba(0, 0, 0, 0.5);
 }
 
 div.row1{
     justify-content: space-between;
     display: flex;
-    background: gray;
+    background: #272e4d;
+    border-radius: 5px;
+    padding: 10px 20px 10px 0px;
+}
+
+div.row1 ul{
+    width: 50%;
+}
+
+div.row1 ul:nth-child(1){
+    text-align: center;
+}
+
+div.row1 ul:nth-child(2){
+    text-align: end;
+}
+
+div.row1 ul:nth-child(1) li{
+    margin: 0;
+}
+
+div.row1 ul:nth-child(1) li:nth-child(1){
+    font-weight: bolder;
+    font-size: 30px;
+}
+
+div.row1 ul:nth-child(2) li:nth-child(1){
+    font-size: 20px;
+}
+
+div.row1 ul:nth-child(2) li:nth-child(2){
+    font-size: 15px;
 }
 
 div.row1 ul li i{
@@ -27,15 +75,36 @@ div.row1 ul li i{
 
 div.row2 ul{
     list-style: none;
+    background: rgb(42, 45, 56);
+    border-radius: 5px;
+    padding: 15px;
 }
 
 div.row2 ul li{
     display: flex;
     justify-content: space-between;
-    background: green;
+  
 }
 
 div.row3 ul{
-    display: flex;
-    justify-content: space-around;
+    display: grid;
+    grid-gap: 15px;
+    grid-template-columns: auto auto;
+}
+
+div.row3 ul div{
+    background: #272e4d;
+    flex: auto;
+    padding: 10px 0 10px 0;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.autocomplete{
+    color: #1f2335;
+    text-shadow: none;
+}
+
+.autocomplete input{
+    text-transform: uppercase;
 }
