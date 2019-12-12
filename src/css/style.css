@@ -1,0 +1,41 @@
+ul{
+    list-style: none;
+    padding: 0;
+}
+
+div.main{
+    background: gray;
+    width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+div.row1{
+    justify-content: space-between;
+    display: flex;
+    background: gray;
+}
+
+div.row1 ul li i{
+    font-size: 100px;
+}
+
+div.row2 ul{
+    list-style: none;
+}
+
+div.row2 ul li{
+    display: flex;
+    justify-content: space-between;
+    background: green;
+}
+
+div.row3 ul{
+    display: flex;
+    justify-content: space-around;
+}
+
+.autocomp{
+    
+}

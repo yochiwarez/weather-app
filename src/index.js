@@ -1,21 +1,26 @@
-import Vue from 'vue'
+/* eslint-disable import/no-named-as-default-member */
+import Vue from 'vue';
 import Vuex from 'vuex';
-import axios from 'axios'
+import axios from 'axios';
 
-Vue.use(Vuex)
+import Autocomplete from '@trevoreyre/autocomplete-vue';
+// eslint-disable-next-line import/no-named-as-default
+import router from './vue/router/index';
+import store from './vue/store/store';
 
-import router from './vue/router/index.js';
-import store from './vue/store/store.js';
-
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap';
+import '@trevoreyre/autocomplete-vue/dist/style.css';
 
 import './css/style.css';
+import './css/weather-icons.css';
 
-Vue.prototype.$http = axios 
+Vue.use(Vuex);
+
+Vue.component('Autocomplete', Autocomplete);
+
+Vue.prototype.$http = axios;
 
 
 new Vue({
-    store,
-    router,
-}).$mount('#app')
+  store,
+  router,
+}).$mount('#app');

@@ -1,15 +1,15 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import Ventas from '../views/ventas.vue';
+import main from '../views/main.vue';
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name: 'Ventas',
-    component: Ventas
+    name: 'Main',
+    component: main
   },
   {
     path: '/inventario',
