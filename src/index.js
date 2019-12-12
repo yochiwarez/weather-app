@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 import Vue from 'vue';
 import axios from 'axios';
 import Autocomplete from '@trevoreyre/autocomplete-vue';
