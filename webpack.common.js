@@ -1,4 +1,4 @@
-const webpack = require('webpack');
+/* eslint-disable import/no-extraneous-dependencies */
 const { VueLoaderPlugin } = require('vue-loader');
 const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');

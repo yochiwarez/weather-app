@@ -1,50 +1,6 @@
 /******/ (function(modules) { // webpackBootstrap
-/******/ 	// install a JSONP callback for chunk loading
-/******/ 	function webpackJsonpCallback(data) {
-/******/ 		var chunkIds = data[0];
-/******/ 		var moreModules = data[1];
-/******/
-/******/
-/******/ 		// add "moreModules" to the modules object,
-/******/ 		// then flag all "chunkIds" as loaded and fire callback
-/******/ 		var moduleId, chunkId, i = 0, resolves = [];
-/******/ 		for(;i < chunkIds.length; i++) {
-/******/ 			chunkId = chunkIds[i];
-/******/ 			if(Object.prototype.hasOwnProperty.call(installedChunks, chunkId) && installedChunks[chunkId]) {
-/******/ 				resolves.push(installedChunks[chunkId][0]);
-/******/ 			}
-/******/ 			installedChunks[chunkId] = 0;
-/******/ 		}
-/******/ 		for(moduleId in moreModules) {
-/******/ 			if(Object.prototype.hasOwnProperty.call(moreModules, moduleId)) {
-/******/ 				modules[moduleId] = moreModules[moduleId];
-/******/ 			}
-/******/ 		}
-/******/ 		if(parentJsonpFunction) parentJsonpFunction(data);
-/******/
-/******/ 		while(resolves.length) {
-/******/ 			resolves.shift()();
-/******/ 		}
-/******/
-/******/ 	};
-/******/
-/******/
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
-/******/
-/******/ 	// object to store loaded and loading chunks
-/******/ 	// undefined = chunk not loaded, null = chunk preloaded/prefetched
-/******/ 	// Promise = chunk loading, 0 = chunk loaded
-/******/ 	var installedChunks = {
-/******/ 		"main": 0
-/******/ 	};
-/******/
-/******/
-/******/
-/******/ 	// script path function
-/******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "" + ({"inventario":"inventario"}[chunkId]||chunkId) + ".js"
-/******/ 	}
 /******/
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
@@ -70,67 +26,6 @@
 /******/ 		return module.exports;
 /******/ 	}
 /******/
-/******/ 	// This file contains only the entry chunk.
-/******/ 	// The chunk loading function for additional chunks
-/******/ 	__webpack_require__.e = function requireEnsure(chunkId) {
-/******/ 		var promises = [];
-/******/
-/******/
-/******/ 		// JSONP chunk loading for javascript
-/******/
-/******/ 		var installedChunkData = installedChunks[chunkId];
-/******/ 		if(installedChunkData !== 0) { // 0 means "already installed".
-/******/
-/******/ 			// a Promise means "currently loading".
-/******/ 			if(installedChunkData) {
-/******/ 				promises.push(installedChunkData[2]);
-/******/ 			} else {
-/******/ 				// setup Promise in chunk cache
-/******/ 				var promise = new Promise(function(resolve, reject) {
-/******/ 					installedChunkData = installedChunks[chunkId] = [resolve, reject];
-/******/ 				});
-/******/ 				promises.push(installedChunkData[2] = promise);
-/******/
-/******/ 				// start chunk loading
-/******/ 				var script = document.createElement('script');
-/******/ 				var onScriptComplete;
-/******/
-/******/ 				script.charset = 'utf-8';
-/******/ 				script.timeout = 120;
-/******/ 				if (__webpack_require__.nc) {
-/******/ 					script.setAttribute("nonce", __webpack_require__.nc);
-/******/ 				}
-/******/ 				script.src = jsonpScriptSrc(chunkId);
-/******/
-/******/ 				// create error before stack unwound to get useful stacktrace later
-/******/ 				var error = new Error();
-/******/ 				onScriptComplete = function (event) {
-/******/ 					// avoid mem leaks in IE.
-/******/ 					script.onerror = script.onload = null;
-/******/ 					clearTimeout(timeout);
-/******/ 					var chunk = installedChunks[chunkId];
-/******/ 					if(chunk !== 0) {
-/******/ 						if(chunk) {
-/******/ 							var errorType = event && (event.type === 'load' ? 'missing' : event.type);
-/******/ 							var realSrc = event && event.target && event.target.src;
-/******/ 							error.message = 'Loading chunk ' + chunkId + ' failed.\n(' + errorType + ': ' + realSrc + ')';
-/******/ 							error.name = 'ChunkLoadError';
-/******/ 							error.type = errorType;
-/******/ 							error.request = realSrc;
-/******/ 							chunk[1](error);
-/******/ 						}
-/******/ 						installedChunks[chunkId] = undefined;
-/******/ 					}
-/******/ 				};
-/******/ 				var timeout = setTimeout(function(){
-/******/ 					onScriptComplete({ type: 'timeout', target: script });
-/******/ 				}, 120000);
-/******/ 				script.onerror = script.onload = onScriptComplete;
-/******/ 				document.head.appendChild(script);
-/******/ 			}
-/******/ 		}
-/******/ 		return Promise.all(promises);
-/******/ 	};
 /******/
 /******/ 	// expose the modules object (__webpack_modules__)
 /******/ 	__webpack_require__.m = modules;
@@ -183,16 +78,6 @@
 /******/
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "";
-/******/
-/******/ 	// on error function for async loading
-/******/ 	__webpack_require__.oe = function(err) { console.error(err); throw err; };
-/******/
-/******/ 	var jsonpArray = window["webpackJsonp"] = window["webpackJsonp"] || [];
-/******/ 	var oldJsonpFunction = jsonpArray.push.bind(jsonpArray);
-/******/ 	jsonpArray.push = webpackJsonpCallback;
-/******/ 	jsonpArray = jsonpArray.slice();
-/******/ 	for(var i = 0; i < jsonpArray.length; i++) webpackJsonpCallback(jsonpArray[i]);
-/******/ 	var parentJsonpFunction = oldJsonpFunction;
 /******/
 /******/
 /******/ 	// Load entry module and return exports
@@ -2667,8 +2552,6 @@ module.exports = function isBuffer (obj) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _assets_countries_json__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../assets/countries.json */ "./src/assets/countries.json");
 var _assets_countries_json__WEBPACK_IMPORTED_MODULE_0___namespace = /*#__PURE__*/__webpack_require__.t(/*! ../../assets/countries.json */ "./src/assets/countries.json", 1);
-/* harmony import */ var _assets_icons_json__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../assets/icons.json */ "./src/assets/icons.json");
-var _assets_icons_json__WEBPACK_IMPORTED_MODULE_1___namespace = /*#__PURE__*/__webpack_require__.t(/*! ../../assets/icons.json */ "./src/assets/icons.json", 1);
 //
 //
 //
@@ -2713,13 +2596,23 @@ var _assets_icons_json__WEBPACK_IMPORTED_MODULE_1___namespace = /*#__PURE__*/__w
 //
 //
 //
-
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: () => ({
-    data: [],
+    data: {
+      main: {},
+      weather: [{}],
+      wind: {}
+    },
     countries: _assets_countries_json__WEBPACK_IMPORTED_MODULE_0__,
-    icons: _assets_icons_json__WEBPACK_IMPORTED_MODULE_1__
+    icon: null
   }),
   methods: {
     search(input) {
@@ -2731,10 +2624,41 @@ var _assets_icons_json__WEBPACK_IMPORTED_MODULE_1___namespace = /*#__PURE__*/__w
     },
 
     submit(v) {
-      console.log(v);
-      this.$http.post(`http://api.openweathermap.org/data/2.5/weather?q=${v}&APPID=ccf0280f67bc164a41011b8b774bbb8d`).then(resp => {
-        console.log(resp.data);
+      this.$http.post(`http://api.openweathermap.org/data/2.5/weather?q=${v}&units=metric&APPID=ccf0280f67bc164a41011b8b774bbb8d`).then(resp => {
+        this.$set(this, 'data', resp.data);
+        this.icon = `http://openweathermap.org/img/wn/${this.data.weather[0].icon}@2x.png`;
       });
+    }
+
+  },
+
+  mounted() {
+    this.submit('arequipa');
+  },
+
+  computed: {
+    day() {
+      return new Date().toLocaleString('en-us', {
+        weekday: 'long'
+      });
+    },
+
+    date() {
+      let today = new Date();
+      let dd = today.getDate();
+      let mm = today.getMonth() + 1;
+      const yyyy = today.getFullYear();
+
+      if (dd < 10) {
+        dd = `0${dd}`;
+      }
+
+      if (mm < 10) {
+        mm = `0${mm}`;
+      }
+
+      today = `${dd}/${mm}/${yyyy}`;
+      return today;
     }
 
   }
@@ -2765,29 +2689,7 @@ exports.push([module.i, ".autocomplete-input{border:1px solid #eee;border-radius
 
 exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, "ul{\n    list-style: none;\n    padding: 0;\n}\n\ndiv.main{\n    background: gray;\n    width: 500px;\n    margin: 0 auto;\n    padding: 20px;\n    border-radius: 10px;\n}\n\ndiv.row1{\n    justify-content: space-between;\n    display: flex;\n    background: gray;\n}\n\ndiv.row1 ul li i{\n    font-size: 100px;\n}\n\ndiv.row2 ul{\n    list-style: none;\n}\n\ndiv.row2 ul li{\n    display: flex;\n    justify-content: space-between;\n    background: green;\n}\n\ndiv.row3 ul{\n    display: flex;\n    justify-content: space-around;\n}\n\n.autocomp{\n    \n}", ""]);
-
-
-/***/ }),
-
-/***/ "./node_modules/css-loader/dist/cjs.js!./src/css/weather-icons.css":
-/*!*************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js!./src/css/weather-icons.css ***!
-  \*************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
-// Imports
-var getUrl = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/getUrl.js */ "./node_modules/css-loader/dist/runtime/getUrl.js");
-var ___CSS_LOADER_URL___0___ = getUrl(__webpack_require__(/*! ../font/weathericons-regular-webfont.eot */ "./src/font/weathericons-regular-webfont.eot"));
-var ___CSS_LOADER_URL___1___ = getUrl(__webpack_require__(/*! ../font/weathericons-regular-webfont.eot */ "./src/font/weathericons-regular-webfont.eot"), { hash: "?#iefix" });
-var ___CSS_LOADER_URL___2___ = getUrl(__webpack_require__(/*! ../font/weathericons-regular-webfont.woff2 */ "./src/font/weathericons-regular-webfont.woff2"));
-var ___CSS_LOADER_URL___3___ = getUrl(__webpack_require__(/*! ../font/weathericons-regular-webfont.woff */ "./src/font/weathericons-regular-webfont.woff"));
-var ___CSS_LOADER_URL___4___ = getUrl(__webpack_require__(/*! ../font/weathericons-regular-webfont.ttf */ "./src/font/weathericons-regular-webfont.ttf"));
-var ___CSS_LOADER_URL___5___ = getUrl(__webpack_require__(/*! ../font/weathericons-regular-webfont.svg */ "./src/font/weathericons-regular-webfont.svg"), { hash: "#weather_iconsregular" });
-// Module
-exports.push([module.i, "/*!\n *  Weather Icons 2.0.8\n *  Updated September 19, 2015\n *  Weather themed icons for Bootstrap\n *  Author - Erik Flowers - erik@helloerik.com\n *  Email: erik@helloerik.com\n *  Twitter: http://twitter.com/Erik_UX\n *  ------------------------------------------------------------------------------\n *  Maintained at http://erikflowers.github.io/weather-icons\n *\n *  License\n *  ------------------------------------------------------------------------------\n *  - Font licensed under SIL OFL 1.1 -\n *    http://scripts.sil.org/OFL\n *  - CSS, SCSS and LESS are licensed under MIT License -\n *    http://opensource.org/licenses/mit-license.html\n *  - Documentation licensed under CC BY 3.0 -\n *    http://creativecommons.org/licenses/by/3.0/\n *  - Inspired by and works great as a companion with Font Awesome\n *    \"Font Awesome by Dave Gandy - http://fontawesome.io\"\n */\n@font-face {\n  font-family: 'weathericons';\n  src: url(" + ___CSS_LOADER_URL___0___ + ");\n  src: url(" + ___CSS_LOADER_URL___1___ + ") format('embedded-opentype'), url(" + ___CSS_LOADER_URL___2___ + ") format('woff2'), url(" + ___CSS_LOADER_URL___3___ + ") format('woff'), url(" + ___CSS_LOADER_URL___4___ + ") format('truetype'), url(" + ___CSS_LOADER_URL___5___ + ") format('svg');\n  font-weight: normal;\n  font-style: normal;\n}\n.wi {\n  display: inline-block;\n  font-family: 'weathericons';\n  font-style: normal;\n  font-weight: normal;\n  line-height: 1;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n}\n.wi-fw {\n  text-align: center;\n  width: 1.4em;\n}\n.wi-rotate-90 {\n  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);\n  -webkit-transform: rotate(90deg);\n  -ms-transform: rotate(90deg);\n  transform: rotate(90deg);\n}\n.wi-rotate-180 {\n  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);\n  -webkit-transform: rotate(180deg);\n  -ms-transform: rotate(180deg);\n  transform: rotate(180deg);\n}\n.wi-rotate-270 {\n  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);\n  -webkit-transform: rotate(270deg);\n  -ms-transform: rotate(270deg);\n  transform: rotate(270deg);\n}\n.wi-flip-horizontal {\n  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1);\n  -webkit-transform: scale(-1, 1);\n  -ms-transform: scale(-1, 1);\n  transform: scale(-1, 1);\n}\n.wi-flip-vertical {\n  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1);\n  -webkit-transform: scale(1, -1);\n  -ms-transform: scale(1, -1);\n  transform: scale(1, -1);\n}\n.wi-day-sunny:before {\n  content: \"\\f00d\";\n}\n.wi-day-cloudy:before {\n  content: \"\\f002\";\n}\n.wi-day-cloudy-gusts:before {\n  content: \"\\f000\";\n}\n.wi-day-cloudy-windy:before {\n  content: \"\\f001\";\n}\n.wi-day-fog:before {\n  content: \"\\f003\";\n}\n.wi-day-hail:before {\n  content: \"\\f004\";\n}\n.wi-day-haze:before {\n  content: \"\\f0b6\";\n}\n.wi-day-lightning:before {\n  content: \"\\f005\";\n}\n.wi-day-rain:before {\n  content: \"\\f008\";\n}\n.wi-day-rain-mix:before {\n  content: \"\\f006\";\n}\n.wi-day-rain-wind:before {\n  content: \"\\f007\";\n}\n.wi-day-showers:before {\n  content: \"\\f009\";\n}\n.wi-day-sleet:before {\n  content: \"\\f0b2\";\n}\n.wi-day-sleet-storm:before {\n  content: \"\\f068\";\n}\n.wi-day-snow:before {\n  content: \"\\f00a\";\n}\n.wi-day-snow-thunderstorm:before {\n  content: \"\\f06b\";\n}\n.wi-day-snow-wind:before {\n  content: \"\\f065\";\n}\n.wi-day-sprinkle:before {\n  content: \"\\f00b\";\n}\n.wi-day-storm-showers:before {\n  content: \"\\f00e\";\n}\n.wi-day-sunny-overcast:before {\n  content: \"\\f00c\";\n}\n.wi-day-thunderstorm:before {\n  content: \"\\f010\";\n}\n.wi-day-windy:before {\n  content: \"\\f085\";\n}\n.wi-solar-eclipse:before {\n  content: \"\\f06e\";\n}\n.wi-hot:before {\n  content: \"\\f072\";\n}\n.wi-day-cloudy-high:before {\n  content: \"\\f07d\";\n}\n.wi-day-light-wind:before {\n  content: \"\\f0c4\";\n}\n.wi-night-clear:before {\n  content: \"\\f02e\";\n}\n.wi-night-alt-cloudy:before {\n  content: \"\\f086\";\n}\n.wi-night-alt-cloudy-gusts:before {\n  content: \"\\f022\";\n}\n.wi-night-alt-cloudy-windy:before {\n  content: \"\\f023\";\n}\n.wi-night-alt-hail:before {\n  content: \"\\f024\";\n}\n.wi-night-alt-lightning:before {\n  content: \"\\f025\";\n}\n.wi-night-alt-rain:before {\n  content: \"\\f028\";\n}\n.wi-night-alt-rain-mix:before {\n  content: \"\\f026\";\n}\n.wi-night-alt-rain-wind:before {\n  content: \"\\f027\";\n}\n.wi-night-alt-showers:before {\n  content: \"\\f029\";\n}\n.wi-night-alt-sleet:before {\n  content: \"\\f0b4\";\n}\n.wi-night-alt-sleet-storm:before {\n  content: \"\\f06a\";\n}\n.wi-night-alt-snow:before {\n  content: \"\\f02a\";\n}\n.wi-night-alt-snow-thunderstorm:before {\n  content: \"\\f06d\";\n}\n.wi-night-alt-snow-wind:before {\n  content: \"\\f067\";\n}\n.wi-night-alt-sprinkle:before {\n  content: \"\\f02b\";\n}\n.wi-night-alt-storm-showers:before {\n  content: \"\\f02c\";\n}\n.wi-night-alt-thunderstorm:before {\n  content: \"\\f02d\";\n}\n.wi-night-cloudy:before {\n  content: \"\\f031\";\n}\n.wi-night-cloudy-gusts:before {\n  content: \"\\f02f\";\n}\n.wi-night-cloudy-windy:before {\n  content: \"\\f030\";\n}\n.wi-night-fog:before {\n  content: \"\\f04a\";\n}\n.wi-night-hail:before {\n  content: \"\\f032\";\n}\n.wi-night-lightning:before {\n  content: \"\\f033\";\n}\n.wi-night-partly-cloudy:before {\n  content: \"\\f083\";\n}\n.wi-night-rain:before {\n  content: \"\\f036\";\n}\n.wi-night-rain-mix:before {\n  content: \"\\f034\";\n}\n.wi-night-rain-wind:before {\n  content: \"\\f035\";\n}\n.wi-night-showers:before {\n  content: \"\\f037\";\n}\n.wi-night-sleet:before {\n  content: \"\\f0b3\";\n}\n.wi-night-sleet-storm:before {\n  content: \"\\f069\";\n}\n.wi-night-snow:before {\n  content: \"\\f038\";\n}\n.wi-night-snow-thunderstorm:before {\n  content: \"\\f06c\";\n}\n.wi-night-snow-wind:before {\n  content: \"\\f066\";\n}\n.wi-night-sprinkle:before {\n  content: \"\\f039\";\n}\n.wi-night-storm-showers:before {\n  content: \"\\f03a\";\n}\n.wi-night-thunderstorm:before {\n  content: \"\\f03b\";\n}\n.wi-lunar-eclipse:before {\n  content: \"\\f070\";\n}\n.wi-stars:before {\n  content: \"\\f077\";\n}\n.wi-storm-showers:before {\n  content: \"\\f01d\";\n}\n.wi-thunderstorm:before {\n  content: \"\\f01e\";\n}\n.wi-night-alt-cloudy-high:before {\n  content: \"\\f07e\";\n}\n.wi-night-cloudy-high:before {\n  content: \"\\f080\";\n}\n.wi-night-alt-partly-cloudy:before {\n  content: \"\\f081\";\n}\n.wi-cloud:before {\n  content: \"\\f041\";\n}\n.wi-cloudy:before {\n  content: \"\\f013\";\n}\n.wi-cloudy-gusts:before {\n  content: \"\\f011\";\n}\n.wi-cloudy-windy:before {\n  content: \"\\f012\";\n}\n.wi-fog:before {\n  content: \"\\f014\";\n}\n.wi-hail:before {\n  content: \"\\f015\";\n}\n.wi-rain:before {\n  content: \"\\f019\";\n}\n.wi-rain-mix:before {\n  content: \"\\f017\";\n}\n.wi-rain-wind:before {\n  content: \"\\f018\";\n}\n.wi-showers:before {\n  content: \"\\f01a\";\n}\n.wi-sleet:before {\n  content: \"\\f0b5\";\n}\n.wi-snow:before {\n  content: \"\\f01b\";\n}\n.wi-sprinkle:before {\n  content: \"\\f01c\";\n}\n.wi-storm-showers:before {\n  content: \"\\f01d\";\n}\n.wi-thunderstorm:before {\n  content: \"\\f01e\";\n}\n.wi-snow-wind:before {\n  content: \"\\f064\";\n}\n.wi-snow:before {\n  content: \"\\f01b\";\n}\n.wi-smog:before {\n  content: \"\\f074\";\n}\n.wi-smoke:before {\n  content: \"\\f062\";\n}\n.wi-lightning:before {\n  content: \"\\f016\";\n}\n.wi-raindrops:before {\n  content: \"\\f04e\";\n}\n.wi-raindrop:before {\n  content: \"\\f078\";\n}\n.wi-dust:before {\n  content: \"\\f063\";\n}\n.wi-snowflake-cold:before {\n  content: \"\\f076\";\n}\n.wi-windy:before {\n  content: \"\\f021\";\n}\n.wi-strong-wind:before {\n  content: \"\\f050\";\n}\n.wi-sandstorm:before {\n  content: \"\\f082\";\n}\n.wi-earthquake:before {\n  content: \"\\f0c6\";\n}\n.wi-fire:before {\n  content: \"\\f0c7\";\n}\n.wi-flood:before {\n  content: \"\\f07c\";\n}\n.wi-meteor:before {\n  content: \"\\f071\";\n}\n.wi-tsunami:before {\n  content: \"\\f0c5\";\n}\n.wi-volcano:before {\n  content: \"\\f0c8\";\n}\n.wi-hurricane:before {\n  content: \"\\f073\";\n}\n.wi-tornado:before {\n  content: \"\\f056\";\n}\n.wi-small-craft-advisory:before {\n  content: \"\\f0cc\";\n}\n.wi-gale-warning:before {\n  content: \"\\f0cd\";\n}\n.wi-storm-warning:before {\n  content: \"\\f0ce\";\n}\n.wi-hurricane-warning:before {\n  content: \"\\f0cf\";\n}\n.wi-wind-direction:before {\n  content: \"\\f0b1\";\n}\n.wi-alien:before {\n  content: \"\\f075\";\n}\n.wi-celsius:before {\n  content: \"\\f03c\";\n}\n.wi-fahrenheit:before {\n  content: \"\\f045\";\n}\n.wi-degrees:before {\n  content: \"\\f042\";\n}\n.wi-thermometer:before {\n  content: \"\\f055\";\n}\n.wi-thermometer-exterior:before {\n  content: \"\\f053\";\n}\n.wi-thermometer-internal:before {\n  content: \"\\f054\";\n}\n.wi-cloud-down:before {\n  content: \"\\f03d\";\n}\n.wi-cloud-up:before {\n  content: \"\\f040\";\n}\n.wi-cloud-refresh:before {\n  content: \"\\f03e\";\n}\n.wi-horizon:before {\n  content: \"\\f047\";\n}\n.wi-horizon-alt:before {\n  content: \"\\f046\";\n}\n.wi-sunrise:before {\n  content: \"\\f051\";\n}\n.wi-sunset:before {\n  content: \"\\f052\";\n}\n.wi-moonrise:before {\n  content: \"\\f0c9\";\n}\n.wi-moonset:before {\n  content: \"\\f0ca\";\n}\n.wi-refresh:before {\n  content: \"\\f04c\";\n}\n.wi-refresh-alt:before {\n  content: \"\\f04b\";\n}\n.wi-umbrella:before {\n  content: \"\\f084\";\n}\n.wi-barometer:before {\n  content: \"\\f079\";\n}\n.wi-humidity:before {\n  content: \"\\f07a\";\n}\n.wi-na:before {\n  content: \"\\f07b\";\n}\n.wi-train:before {\n  content: \"\\f0cb\";\n}\n.wi-moon-new:before {\n  content: \"\\f095\";\n}\n.wi-moon-waxing-crescent-1:before {\n  content: \"\\f096\";\n}\n.wi-moon-waxing-crescent-2:before {\n  content: \"\\f097\";\n}\n.wi-moon-waxing-crescent-3:before {\n  content: \"\\f098\";\n}\n.wi-moon-waxing-crescent-4:before {\n  content: \"\\f099\";\n}\n.wi-moon-waxing-crescent-5:before {\n  content: \"\\f09a\";\n}\n.wi-moon-waxing-crescent-6:before {\n  content: \"\\f09b\";\n}\n.wi-moon-first-quarter:before {\n  content: \"\\f09c\";\n}\n.wi-moon-waxing-gibbous-1:before {\n  content: \"\\f09d\";\n}\n.wi-moon-waxing-gibbous-2:before {\n  content: \"\\f09e\";\n}\n.wi-moon-waxing-gibbous-3:before {\n  content: \"\\f09f\";\n}\n.wi-moon-waxing-gibbous-4:before {\n  content: \"\\f0a0\";\n}\n.wi-moon-waxing-gibbous-5:before {\n  content: \"\\f0a1\";\n}\n.wi-moon-waxing-gibbous-6:before {\n  content: \"\\f0a2\";\n}\n.wi-moon-full:before {\n  content: \"\\f0a3\";\n}\n.wi-moon-waning-gibbous-1:before {\n  content: \"\\f0a4\";\n}\n.wi-moon-waning-gibbous-2:before {\n  content: \"\\f0a5\";\n}\n.wi-moon-waning-gibbous-3:before {\n  content: \"\\f0a6\";\n}\n.wi-moon-waning-gibbous-4:before {\n  content: \"\\f0a7\";\n}\n.wi-moon-waning-gibbous-5:before {\n  content: \"\\f0a8\";\n}\n.wi-moon-waning-gibbous-6:before {\n  content: \"\\f0a9\";\n}\n.wi-moon-third-quarter:before {\n  content: \"\\f0aa\";\n}\n.wi-moon-waning-crescent-1:before {\n  content: \"\\f0ab\";\n}\n.wi-moon-waning-crescent-2:before {\n  content: \"\\f0ac\";\n}\n.wi-moon-waning-crescent-3:before {\n  content: \"\\f0ad\";\n}\n.wi-moon-waning-crescent-4:before {\n  content: \"\\f0ae\";\n}\n.wi-moon-waning-crescent-5:before {\n  content: \"\\f0af\";\n}\n.wi-moon-waning-crescent-6:before {\n  content: \"\\f0b0\";\n}\n.wi-moon-alt-new:before {\n  content: \"\\f0eb\";\n}\n.wi-moon-alt-waxing-crescent-1:before {\n  content: \"\\f0d0\";\n}\n.wi-moon-alt-waxing-crescent-2:before {\n  content: \"\\f0d1\";\n}\n.wi-moon-alt-waxing-crescent-3:before {\n  content: \"\\f0d2\";\n}\n.wi-moon-alt-waxing-crescent-4:before {\n  content: \"\\f0d3\";\n}\n.wi-moon-alt-waxing-crescent-5:before {\n  content: \"\\f0d4\";\n}\n.wi-moon-alt-waxing-crescent-6:before {\n  content: \"\\f0d5\";\n}\n.wi-moon-alt-first-quarter:before {\n  content: \"\\f0d6\";\n}\n.wi-moon-alt-waxing-gibbous-1:before {\n  content: \"\\f0d7\";\n}\n.wi-moon-alt-waxing-gibbous-2:before {\n  content: \"\\f0d8\";\n}\n.wi-moon-alt-waxing-gibbous-3:before {\n  content: \"\\f0d9\";\n}\n.wi-moon-alt-waxing-gibbous-4:before {\n  content: \"\\f0da\";\n}\n.wi-moon-alt-waxing-gibbous-5:before {\n  content: \"\\f0db\";\n}\n.wi-moon-alt-waxing-gibbous-6:before {\n  content: \"\\f0dc\";\n}\n.wi-moon-alt-full:before {\n  content: \"\\f0dd\";\n}\n.wi-moon-alt-waning-gibbous-1:before {\n  content: \"\\f0de\";\n}\n.wi-moon-alt-waning-gibbous-2:before {\n  content: \"\\f0df\";\n}\n.wi-moon-alt-waning-gibbous-3:before {\n  content: \"\\f0e0\";\n}\n.wi-moon-alt-waning-gibbous-4:before {\n  content: \"\\f0e1\";\n}\n.wi-moon-alt-waning-gibbous-5:before {\n  content: \"\\f0e2\";\n}\n.wi-moon-alt-waning-gibbous-6:before {\n  content: \"\\f0e3\";\n}\n.wi-moon-alt-third-quarter:before {\n  content: \"\\f0e4\";\n}\n.wi-moon-alt-waning-crescent-1:before {\n  content: \"\\f0e5\";\n}\n.wi-moon-alt-waning-crescent-2:before {\n  content: \"\\f0e6\";\n}\n.wi-moon-alt-waning-crescent-3:before {\n  content: \"\\f0e7\";\n}\n.wi-moon-alt-waning-crescent-4:before {\n  content: \"\\f0e8\";\n}\n.wi-moon-alt-waning-crescent-5:before {\n  content: \"\\f0e9\";\n}\n.wi-moon-alt-waning-crescent-6:before {\n  content: \"\\f0ea\";\n}\n.wi-moon-0:before {\n  content: \"\\f095\";\n}\n.wi-moon-1:before {\n  content: \"\\f096\";\n}\n.wi-moon-2:before {\n  content: \"\\f097\";\n}\n.wi-moon-3:before {\n  content: \"\\f098\";\n}\n.wi-moon-4:before {\n  content: \"\\f099\";\n}\n.wi-moon-5:before {\n  content: \"\\f09a\";\n}\n.wi-moon-6:before {\n  content: \"\\f09b\";\n}\n.wi-moon-7:before {\n  content: \"\\f09c\";\n}\n.wi-moon-8:before {\n  content: \"\\f09d\";\n}\n.wi-moon-9:before {\n  content: \"\\f09e\";\n}\n.wi-moon-10:before {\n  content: \"\\f09f\";\n}\n.wi-moon-11:before {\n  content: \"\\f0a0\";\n}\n.wi-moon-12:before {\n  content: \"\\f0a1\";\n}\n.wi-moon-13:before {\n  content: \"\\f0a2\";\n}\n.wi-moon-14:before {\n  content: \"\\f0a3\";\n}\n.wi-moon-15:before {\n  content: \"\\f0a4\";\n}\n.wi-moon-16:before {\n  content: \"\\f0a5\";\n}\n.wi-moon-17:before {\n  content: \"\\f0a6\";\n}\n.wi-moon-18:before {\n  content: \"\\f0a7\";\n}\n.wi-moon-19:before {\n  content: \"\\f0a8\";\n}\n.wi-moon-20:before {\n  content: \"\\f0a9\";\n}\n.wi-moon-21:before {\n  content: \"\\f0aa\";\n}\n.wi-moon-22:before {\n  content: \"\\f0ab\";\n}\n.wi-moon-23:before {\n  content: \"\\f0ac\";\n}\n.wi-moon-24:before {\n  content: \"\\f0ad\";\n}\n.wi-moon-25:before {\n  content: \"\\f0ae\";\n}\n.wi-moon-26:before {\n  content: \"\\f0af\";\n}\n.wi-moon-27:before {\n  content: \"\\f0b0\";\n}\n.wi-time-1:before {\n  content: \"\\f08a\";\n}\n.wi-time-2:before {\n  content: \"\\f08b\";\n}\n.wi-time-3:before {\n  content: \"\\f08c\";\n}\n.wi-time-4:before {\n  content: \"\\f08d\";\n}\n.wi-time-5:before {\n  content: \"\\f08e\";\n}\n.wi-time-6:before {\n  content: \"\\f08f\";\n}\n.wi-time-7:before {\n  content: \"\\f090\";\n}\n.wi-time-8:before {\n  content: \"\\f091\";\n}\n.wi-time-9:before {\n  content: \"\\f092\";\n}\n.wi-time-10:before {\n  content: \"\\f093\";\n}\n.wi-time-11:before {\n  content: \"\\f094\";\n}\n.wi-time-12:before {\n  content: \"\\f089\";\n}\n.wi-direction-up:before {\n  content: \"\\f058\";\n}\n.wi-direction-up-right:before {\n  content: \"\\f057\";\n}\n.wi-direction-right:before {\n  content: \"\\f04d\";\n}\n.wi-direction-down-right:before {\n  content: \"\\f088\";\n}\n.wi-direction-down:before {\n  content: \"\\f044\";\n}\n.wi-direction-down-left:before {\n  content: \"\\f043\";\n}\n.wi-direction-left:before {\n  content: \"\\f048\";\n}\n.wi-direction-up-left:before {\n  content: \"\\f087\";\n}\n.wi-wind-beaufort-0:before {\n  content: \"\\f0b7\";\n}\n.wi-wind-beaufort-1:before {\n  content: \"\\f0b8\";\n}\n.wi-wind-beaufort-2:before {\n  content: \"\\f0b9\";\n}\n.wi-wind-beaufort-3:before {\n  content: \"\\f0ba\";\n}\n.wi-wind-beaufort-4:before {\n  content: \"\\f0bb\";\n}\n.wi-wind-beaufort-5:before {\n  content: \"\\f0bc\";\n}\n.wi-wind-beaufort-6:before {\n  content: \"\\f0bd\";\n}\n.wi-wind-beaufort-7:before {\n  content: \"\\f0be\";\n}\n.wi-wind-beaufort-8:before {\n  content: \"\\f0bf\";\n}\n.wi-wind-beaufort-9:before {\n  content: \"\\f0c0\";\n}\n.wi-wind-beaufort-10:before {\n  content: \"\\f0c1\";\n}\n.wi-wind-beaufort-11:before {\n  content: \"\\f0c2\";\n}\n.wi-wind-beaufort-12:before {\n  content: \"\\f0c3\";\n}\n.wi-yahoo-0:before {\n  content: \"\\f056\";\n}\n.wi-yahoo-1:before {\n  content: \"\\f00e\";\n}\n.wi-yahoo-2:before {\n  content: \"\\f073\";\n}\n.wi-yahoo-3:before {\n  content: \"\\f01e\";\n}\n.wi-yahoo-4:before {\n  content: \"\\f01e\";\n}\n.wi-yahoo-5:before {\n  content: \"\\f017\";\n}\n.wi-yahoo-6:before {\n  content: \"\\f017\";\n}\n.wi-yahoo-7:before {\n  content: \"\\f017\";\n}\n.wi-yahoo-8:before {\n  content: \"\\f015\";\n}\n.wi-yahoo-9:before {\n  content: \"\\f01a\";\n}\n.wi-yahoo-10:before {\n  content: \"\\f015\";\n}\n.wi-yahoo-11:before {\n  content: \"\\f01a\";\n}\n.wi-yahoo-12:before {\n  content: \"\\f01a\";\n}\n.wi-yahoo-13:before {\n  content: \"\\f01b\";\n}\n.wi-yahoo-14:before {\n  content: \"\\f00a\";\n}\n.wi-yahoo-15:before {\n  content: \"\\f064\";\n}\n.wi-yahoo-16:before {\n  content: \"\\f01b\";\n}\n.wi-yahoo-17:before {\n  content: \"\\f015\";\n}\n.wi-yahoo-18:before {\n  content: \"\\f017\";\n}\n.wi-yahoo-19:before {\n  content: \"\\f063\";\n}\n.wi-yahoo-20:before {\n  content: \"\\f014\";\n}\n.wi-yahoo-21:before {\n  content: \"\\f021\";\n}\n.wi-yahoo-22:before {\n  content: \"\\f062\";\n}\n.wi-yahoo-23:before {\n  content: \"\\f050\";\n}\n.wi-yahoo-24:before {\n  content: \"\\f050\";\n}\n.wi-yahoo-25:before {\n  content: \"\\f076\";\n}\n.wi-yahoo-26:before {\n  content: \"\\f013\";\n}\n.wi-yahoo-27:before {\n  content: \"\\f031\";\n}\n.wi-yahoo-28:before {\n  content: \"\\f002\";\n}\n.wi-yahoo-29:before {\n  content: \"\\f031\";\n}\n.wi-yahoo-30:before {\n  content: \"\\f002\";\n}\n.wi-yahoo-31:before {\n  content: \"\\f02e\";\n}\n.wi-yahoo-32:before {\n  content: \"\\f00d\";\n}\n.wi-yahoo-33:before {\n  content: \"\\f083\";\n}\n.wi-yahoo-34:before {\n  content: \"\\f00c\";\n}\n.wi-yahoo-35:before {\n  content: \"\\f017\";\n}\n.wi-yahoo-36:before {\n  content: \"\\f072\";\n}\n.wi-yahoo-37:before {\n  content: \"\\f00e\";\n}\n.wi-yahoo-38:before {\n  content: \"\\f00e\";\n}\n.wi-yahoo-39:before {\n  content: \"\\f00e\";\n}\n.wi-yahoo-40:before {\n  content: \"\\f01a\";\n}\n.wi-yahoo-41:before {\n  content: \"\\f064\";\n}\n.wi-yahoo-42:before {\n  content: \"\\f01b\";\n}\n.wi-yahoo-43:before {\n  content: \"\\f064\";\n}\n.wi-yahoo-44:before {\n  content: \"\\f00c\";\n}\n.wi-yahoo-45:before {\n  content: \"\\f00e\";\n}\n.wi-yahoo-46:before {\n  content: \"\\f01b\";\n}\n.wi-yahoo-47:before {\n  content: \"\\f00e\";\n}\n.wi-yahoo-3200:before {\n  content: \"\\f077\";\n}\n.wi-forecast-io-clear-day:before {\n  content: \"\\f00d\";\n}\n.wi-forecast-io-clear-night:before {\n  content: \"\\f02e\";\n}\n.wi-forecast-io-rain:before {\n  content: \"\\f019\";\n}\n.wi-forecast-io-snow:before {\n  content: \"\\f01b\";\n}\n.wi-forecast-io-sleet:before {\n  content: \"\\f0b5\";\n}\n.wi-forecast-io-wind:before {\n  content: \"\\f050\";\n}\n.wi-forecast-io-fog:before {\n  content: \"\\f014\";\n}\n.wi-forecast-io-cloudy:before {\n  content: \"\\f013\";\n}\n.wi-forecast-io-partly-cloudy-day:before {\n  content: \"\\f002\";\n}\n.wi-forecast-io-partly-cloudy-night:before {\n  content: \"\\f031\";\n}\n.wi-forecast-io-hail:before {\n  content: \"\\f015\";\n}\n.wi-forecast-io-thunderstorm:before {\n  content: \"\\f01e\";\n}\n.wi-forecast-io-tornado:before {\n  content: \"\\f056\";\n}\n.wi-wmo4680-0:before,\n.wi-wmo4680-00:before {\n  content: \"\\f055\";\n}\n.wi-wmo4680-1:before,\n.wi-wmo4680-01:before {\n  content: \"\\f013\";\n}\n.wi-wmo4680-2:before,\n.wi-wmo4680-02:before {\n  content: \"\\f055\";\n}\n.wi-wmo4680-3:before,\n.wi-wmo4680-03:before {\n  content: \"\\f013\";\n}\n.wi-wmo4680-4:before,\n.wi-wmo4680-04:before {\n  content: \"\\f014\";\n}\n.wi-wmo4680-5:before,\n.wi-wmo4680-05:before {\n  content: \"\\f014\";\n}\n.wi-wmo4680-10:before {\n  content: \"\\f014\";\n}\n.wi-wmo4680-11:before {\n  content: \"\\f014\";\n}\n.wi-wmo4680-12:before {\n  content: \"\\f016\";\n}\n.wi-wmo4680-18:before {\n  content: \"\\f050\";\n}\n.wi-wmo4680-20:before {\n  content: \"\\f014\";\n}\n.wi-wmo4680-21:before {\n  content: \"\\f017\";\n}\n.wi-wmo4680-22:before {\n  content: \"\\f017\";\n}\n.wi-wmo4680-23:before {\n  content: \"\\f019\";\n}\n.wi-wmo4680-24:before {\n  content: \"\\f01b\";\n}\n.wi-wmo4680-25:before {\n  content: \"\\f015\";\n}\n.wi-wmo4680-26:before {\n  content: \"\\f01e\";\n}\n.wi-wmo4680-27:before {\n  content: \"\\f063\";\n}\n.wi-wmo4680-28:before {\n  content: \"\\f063\";\n}\n.wi-wmo4680-29:before {\n  content: \"\\f063\";\n}\n.wi-wmo4680-30:before {\n  content: \"\\f014\";\n}\n.wi-wmo4680-31:before {\n  content: \"\\f014\";\n}\n.wi-wmo4680-32:before {\n  content: \"\\f014\";\n}\n.wi-wmo4680-33:before {\n  content: \"\\f014\";\n}\n.wi-wmo4680-34:before {\n  content: \"\\f014\";\n}\n.wi-wmo4680-35:before {\n  content: \"\\f014\";\n}\n.wi-wmo4680-40:before {\n  content: \"\\f017\";\n}\n.wi-wmo4680-41:before {\n  content: \"\\f01c\";\n}\n.wi-wmo4680-42:before {\n  content: \"\\f019\";\n}\n.wi-wmo4680-43:before {\n  content: \"\\f01c\";\n}\n.wi-wmo4680-44:before {\n  content: \"\\f019\";\n}\n.wi-wmo4680-45:before {\n  content: \"\\f015\";\n}\n.wi-wmo4680-46:before {\n  content: \"\\f015\";\n}\n.wi-wmo4680-47:before {\n  content: \"\\f01b\";\n}\n.wi-wmo4680-48:before {\n  content: \"\\f01b\";\n}\n.wi-wmo4680-50:before {\n  content: \"\\f01c\";\n}\n.wi-wmo4680-51:before {\n  content: \"\\f01c\";\n}\n.wi-wmo4680-52:before {\n  content: \"\\f019\";\n}\n.wi-wmo4680-53:before {\n  content: \"\\f019\";\n}\n.wi-wmo4680-54:before {\n  content: \"\\f076\";\n}\n.wi-wmo4680-55:before {\n  content: \"\\f076\";\n}\n.wi-wmo4680-56:before {\n  content: \"\\f076\";\n}\n.wi-wmo4680-57:before {\n  content: \"\\f01c\";\n}\n.wi-wmo4680-58:before {\n  content: \"\\f019\";\n}\n.wi-wmo4680-60:before {\n  content: \"\\f01c\";\n}\n.wi-wmo4680-61:before {\n  content: \"\\f01c\";\n}\n.wi-wmo4680-62:before {\n  content: \"\\f019\";\n}\n.wi-wmo4680-63:before {\n  content: \"\\f019\";\n}\n.wi-wmo4680-64:before {\n  content: \"\\f015\";\n}\n.wi-wmo4680-65:before {\n  content: \"\\f015\";\n}\n.wi-wmo4680-66:before {\n  content: \"\\f015\";\n}\n.wi-wmo4680-67:before {\n  content: \"\\f017\";\n}\n.wi-wmo4680-68:before {\n  content: \"\\f017\";\n}\n.wi-wmo4680-70:before {\n  content: \"\\f01b\";\n}\n.wi-wmo4680-71:before {\n  content: \"\\f01b\";\n}\n.wi-wmo4680-72:before {\n  content: \"\\f01b\";\n}\n.wi-wmo4680-73:before {\n  content: \"\\f01b\";\n}\n.wi-wmo4680-74:before {\n  content: \"\\f076\";\n}\n.wi-wmo4680-75:before {\n  content: \"\\f076\";\n}\n.wi-wmo4680-76:before {\n  content: \"\\f076\";\n}\n.wi-wmo4680-77:before {\n  content: \"\\f01b\";\n}\n.wi-wmo4680-78:before {\n  content: \"\\f076\";\n}\n.wi-wmo4680-80:before {\n  content: \"\\f019\";\n}\n.wi-wmo4680-81:before {\n  content: \"\\f01c\";\n}\n.wi-wmo4680-82:before {\n  content: \"\\f019\";\n}\n.wi-wmo4680-83:before {\n  content: \"\\f019\";\n}\n.wi-wmo4680-84:before {\n  content: \"\\f01d\";\n}\n.wi-wmo4680-85:before {\n  content: \"\\f017\";\n}\n.wi-wmo4680-86:before {\n  content: \"\\f017\";\n}\n.wi-wmo4680-87:before {\n  content: \"\\f017\";\n}\n.wi-wmo4680-89:before {\n  content: \"\\f015\";\n}\n.wi-wmo4680-90:before {\n  content: \"\\f016\";\n}\n.wi-wmo4680-91:before {\n  content: \"\\f01d\";\n}\n.wi-wmo4680-92:before {\n  content: \"\\f01e\";\n}\n.wi-wmo4680-93:before {\n  content: \"\\f01e\";\n}\n.wi-wmo4680-94:before {\n  content: \"\\f016\";\n}\n.wi-wmo4680-95:before {\n  content: \"\\f01e\";\n}\n.wi-wmo4680-96:before {\n  content: \"\\f01e\";\n}\n.wi-wmo4680-99:before {\n  content: \"\\f056\";\n}\n.wi-owm-200:before {\n  content: \"\\f01e\";\n}\n.wi-owm-201:before {\n  content: \"\\f01e\";\n}\n.wi-owm-202:before {\n  content: \"\\f01e\";\n}\n.wi-owm-210:before {\n  content: \"\\f016\";\n}\n.wi-owm-211:before {\n  content: \"\\f016\";\n}\n.wi-owm-212:before {\n  content: \"\\f016\";\n}\n.wi-owm-221:before {\n  content: \"\\f016\";\n}\n.wi-owm-230:before {\n  content: \"\\f01e\";\n}\n.wi-owm-231:before {\n  content: \"\\f01e\";\n}\n.wi-owm-232:before {\n  content: \"\\f01e\";\n}\n.wi-owm-300:before {\n  content: \"\\f01c\";\n}\n.wi-owm-301:before {\n  content: \"\\f01c\";\n}\n.wi-owm-302:before {\n  content: \"\\f019\";\n}\n.wi-owm-310:before {\n  content: \"\\f017\";\n}\n.wi-owm-311:before {\n  content: \"\\f019\";\n}\n.wi-owm-312:before {\n  content: \"\\f019\";\n}\n.wi-owm-313:before {\n  content: \"\\f01a\";\n}\n.wi-owm-314:before {\n  content: \"\\f019\";\n}\n.wi-owm-321:before {\n  content: \"\\f01c\";\n}\n.wi-owm-500:before {\n  content: \"\\f01c\";\n}\n.wi-owm-501:before {\n  content: \"\\f019\";\n}\n.wi-owm-502:before {\n  content: \"\\f019\";\n}\n.wi-owm-503:before {\n  content: \"\\f019\";\n}\n.wi-owm-504:before {\n  content: \"\\f019\";\n}\n.wi-owm-511:before {\n  content: \"\\f017\";\n}\n.wi-owm-520:before {\n  content: \"\\f01a\";\n}\n.wi-owm-521:before {\n  content: \"\\f01a\";\n}\n.wi-owm-522:before {\n  content: \"\\f01a\";\n}\n.wi-owm-531:before {\n  content: \"\\f01d\";\n}\n.wi-owm-600:before {\n  content: \"\\f01b\";\n}\n.wi-owm-601:before {\n  content: \"\\f01b\";\n}\n.wi-owm-602:before {\n  content: \"\\f0b5\";\n}\n.wi-owm-611:before {\n  content: \"\\f017\";\n}\n.wi-owm-612:before {\n  content: \"\\f017\";\n}\n.wi-owm-615:before {\n  content: \"\\f017\";\n}\n.wi-owm-616:before {\n  content: \"\\f017\";\n}\n.wi-owm-620:before {\n  content: \"\\f017\";\n}\n.wi-owm-621:before {\n  content: \"\\f01b\";\n}\n.wi-owm-622:before {\n  content: \"\\f01b\";\n}\n.wi-owm-701:before {\n  content: \"\\f014\";\n}\n.wi-owm-711:before {\n  content: \"\\f062\";\n}\n.wi-owm-721:before {\n  content: \"\\f0b6\";\n}\n.wi-owm-731:before {\n  content: \"\\f063\";\n}\n.wi-owm-741:before {\n  content: \"\\f014\";\n}\n.wi-owm-761:before {\n  content: \"\\f063\";\n}\n.wi-owm-762:before {\n  content: \"\\f063\";\n}\n.wi-owm-771:before {\n  content: \"\\f011\";\n}\n.wi-owm-781:before {\n  content: \"\\f056\";\n}\n.wi-owm-800:before {\n  content: \"\\f00d\";\n}\n.wi-owm-801:before {\n  content: \"\\f011\";\n}\n.wi-owm-802:before {\n  content: \"\\f011\";\n}\n.wi-owm-803:before {\n  content: \"\\f012\";\n}\n.wi-owm-804:before {\n  content: \"\\f013\";\n}\n.wi-owm-900:before {\n  content: \"\\f056\";\n}\n.wi-owm-901:before {\n  content: \"\\f01d\";\n}\n.wi-owm-902:before {\n  content: \"\\f073\";\n}\n.wi-owm-903:before {\n  content: \"\\f076\";\n}\n.wi-owm-904:before {\n  content: \"\\f072\";\n}\n.wi-owm-905:before {\n  content: \"\\f021\";\n}\n.wi-owm-906:before {\n  content: \"\\f015\";\n}\n.wi-owm-957:before {\n  content: \"\\f050\";\n}\n.wi-owm-day-200:before {\n  content: \"\\f010\";\n}\n.wi-owm-day-201:before {\n  content: \"\\f010\";\n}\n.wi-owm-day-202:before {\n  content: \"\\f010\";\n}\n.wi-owm-day-210:before {\n  content: \"\\f005\";\n}\n.wi-owm-day-211:before {\n  content: \"\\f005\";\n}\n.wi-owm-day-212:before {\n  content: \"\\f005\";\n}\n.wi-owm-day-221:before {\n  content: \"\\f005\";\n}\n.wi-owm-day-230:before {\n  content: \"\\f010\";\n}\n.wi-owm-day-231:before {\n  content: \"\\f010\";\n}\n.wi-owm-day-232:before {\n  content: \"\\f010\";\n}\n.wi-owm-day-300:before {\n  content: \"\\f00b\";\n}\n.wi-owm-day-301:before {\n  content: \"\\f00b\";\n}\n.wi-owm-day-302:before {\n  content: \"\\f008\";\n}\n.wi-owm-day-310:before {\n  content: \"\\f008\";\n}\n.wi-owm-day-311:before {\n  content: \"\\f008\";\n}\n.wi-owm-day-312:before {\n  content: \"\\f008\";\n}\n.wi-owm-day-313:before {\n  content: \"\\f008\";\n}\n.wi-owm-day-314:before {\n  content: \"\\f008\";\n}\n.wi-owm-day-321:before {\n  content: \"\\f00b\";\n}\n.wi-owm-day-500:before {\n  content: \"\\f00b\";\n}\n.wi-owm-day-501:before {\n  content: \"\\f008\";\n}\n.wi-owm-day-502:before {\n  content: \"\\f008\";\n}\n.wi-owm-day-503:before {\n  content: \"\\f008\";\n}\n.wi-owm-day-504:before {\n  content: \"\\f008\";\n}\n.wi-owm-day-511:before {\n  content: \"\\f006\";\n}\n.wi-owm-day-520:before {\n  content: \"\\f009\";\n}\n.wi-owm-day-521:before {\n  content: \"\\f009\";\n}\n.wi-owm-day-522:before {\n  content: \"\\f009\";\n}\n.wi-owm-day-531:before {\n  content: \"\\f00e\";\n}\n.wi-owm-day-600:before {\n  content: \"\\f00a\";\n}\n.wi-owm-day-601:before {\n  content: \"\\f0b2\";\n}\n.wi-owm-day-602:before {\n  content: \"\\f00a\";\n}\n.wi-owm-day-611:before {\n  content: \"\\f006\";\n}\n.wi-owm-day-612:before {\n  content: \"\\f006\";\n}\n.wi-owm-day-615:before {\n  content: \"\\f006\";\n}\n.wi-owm-day-616:before {\n  content: \"\\f006\";\n}\n.wi-owm-day-620:before {\n  content: \"\\f006\";\n}\n.wi-owm-day-621:before {\n  content: \"\\f00a\";\n}\n.wi-owm-day-622:before {\n  content: \"\\f00a\";\n}\n.wi-owm-day-701:before {\n  content: \"\\f003\";\n}\n.wi-owm-day-711:before {\n  content: \"\\f062\";\n}\n.wi-owm-day-721:before {\n  content: \"\\f0b6\";\n}\n.wi-owm-day-731:before {\n  content: \"\\f063\";\n}\n.wi-owm-day-741:before {\n  content: \"\\f003\";\n}\n.wi-owm-day-761:before {\n  content: \"\\f063\";\n}\n.wi-owm-day-762:before {\n  content: \"\\f063\";\n}\n.wi-owm-day-781:before {\n  content: \"\\f056\";\n}\n.wi-owm-day-800:before {\n  content: \"\\f00d\";\n}\n.wi-owm-day-801:before {\n  content: \"\\f000\";\n}\n.wi-owm-day-802:before {\n  content: \"\\f000\";\n}\n.wi-owm-day-803:before {\n  content: \"\\f000\";\n}\n.wi-owm-day-804:before {\n  content: \"\\f00c\";\n}\n.wi-owm-day-900:before {\n  content: \"\\f056\";\n}\n.wi-owm-day-902:before {\n  content: \"\\f073\";\n}\n.wi-owm-day-903:before {\n  content: \"\\f076\";\n}\n.wi-owm-day-904:before {\n  content: \"\\f072\";\n}\n.wi-owm-day-906:before {\n  content: \"\\f004\";\n}\n.wi-owm-day-957:before {\n  content: \"\\f050\";\n}\n.wi-owm-night-200:before {\n  content: \"\\f02d\";\n}\n.wi-owm-night-201:before {\n  content: \"\\f02d\";\n}\n.wi-owm-night-202:before {\n  content: \"\\f02d\";\n}\n.wi-owm-night-210:before {\n  content: \"\\f025\";\n}\n.wi-owm-night-211:before {\n  content: \"\\f025\";\n}\n.wi-owm-night-212:before {\n  content: \"\\f025\";\n}\n.wi-owm-night-221:before {\n  content: \"\\f025\";\n}\n.wi-owm-night-230:before {\n  content: \"\\f02d\";\n}\n.wi-owm-night-231:before {\n  content: \"\\f02d\";\n}\n.wi-owm-night-232:before {\n  content: \"\\f02d\";\n}\n.wi-owm-night-300:before {\n  content: \"\\f02b\";\n}\n.wi-owm-night-301:before {\n  content: \"\\f02b\";\n}\n.wi-owm-night-302:before {\n  content: \"\\f028\";\n}\n.wi-owm-night-310:before {\n  content: \"\\f028\";\n}\n.wi-owm-night-311:before {\n  content: \"\\f028\";\n}\n.wi-owm-night-312:before {\n  content: \"\\f028\";\n}\n.wi-owm-night-313:before {\n  content: \"\\f028\";\n}\n.wi-owm-night-314:before {\n  content: \"\\f028\";\n}\n.wi-owm-night-321:before {\n  content: \"\\f02b\";\n}\n.wi-owm-night-500:before {\n  content: \"\\f02b\";\n}\n.wi-owm-night-501:before {\n  content: \"\\f028\";\n}\n.wi-owm-night-502:before {\n  content: \"\\f028\";\n}\n.wi-owm-night-503:before {\n  content: \"\\f028\";\n}\n.wi-owm-night-504:before {\n  content: \"\\f028\";\n}\n.wi-owm-night-511:before {\n  content: \"\\f026\";\n}\n.wi-owm-night-520:before {\n  content: \"\\f029\";\n}\n.wi-owm-night-521:before {\n  content: \"\\f029\";\n}\n.wi-owm-night-522:before {\n  content: \"\\f029\";\n}\n.wi-owm-night-531:before {\n  content: \"\\f02c\";\n}\n.wi-owm-night-600:before {\n  content: \"\\f02a\";\n}\n.wi-owm-night-601:before {\n  content: \"\\f0b4\";\n}\n.wi-owm-night-602:before {\n  content: \"\\f02a\";\n}\n.wi-owm-night-611:before {\n  content: \"\\f026\";\n}\n.wi-owm-night-612:before {\n  content: \"\\f026\";\n}\n.wi-owm-night-615:before {\n  content: \"\\f026\";\n}\n.wi-owm-night-616:before {\n  content: \"\\f026\";\n}\n.wi-owm-night-620:before {\n  content: \"\\f026\";\n}\n.wi-owm-night-621:before {\n  content: \"\\f02a\";\n}\n.wi-owm-night-622:before {\n  content: \"\\f02a\";\n}\n.wi-owm-night-701:before {\n  content: \"\\f04a\";\n}\n.wi-owm-night-711:before {\n  content: \"\\f062\";\n}\n.wi-owm-night-721:before {\n  content: \"\\f0b6\";\n}\n.wi-owm-night-731:before {\n  content: \"\\f063\";\n}\n.wi-owm-night-741:before {\n  content: \"\\f04a\";\n}\n.wi-owm-night-761:before {\n  content: \"\\f063\";\n}\n.wi-owm-night-762:before {\n  content: \"\\f063\";\n}\n.wi-owm-night-781:before {\n  content: \"\\f056\";\n}\n.wi-owm-night-800:before {\n  content: \"\\f02e\";\n}\n.wi-owm-night-801:before {\n  content: \"\\f022\";\n}\n.wi-owm-night-802:before {\n  content: \"\\f022\";\n}\n.wi-owm-night-803:before {\n  content: \"\\f022\";\n}\n.wi-owm-night-804:before {\n  content: \"\\f086\";\n}\n.wi-owm-night-900:before {\n  content: \"\\f056\";\n}\n.wi-owm-night-902:before {\n  content: \"\\f073\";\n}\n.wi-owm-night-903:before {\n  content: \"\\f076\";\n}\n.wi-owm-night-904:before {\n  content: \"\\f072\";\n}\n.wi-owm-night-906:before {\n  content: \"\\f024\";\n}\n.wi-owm-night-957:before {\n  content: \"\\f050\";\n}\n.wi-wu-chanceflurries:before {\n  content: \"\\f064\";\n}\n.wi-wu-chancerain:before {\n  content: \"\\f019\";\n}\n.wi-wu-chancesleat:before {\n  content: \"\\f0b5\";\n}\n.wi-wu-chancesnow:before {\n  content: \"\\f01b\";\n}\n.wi-wu-chancetstorms:before {\n  content: \"\\f01e\";\n}\n.wi-wu-clear:before {\n  content: \"\\f00d\";\n}\n.wi-wu-cloudy:before {\n  content: \"\\f002\";\n}\n.wi-wu-flurries:before {\n  content: \"\\f064\";\n}\n.wi-wu-hazy:before {\n  content: \"\\f0b6\";\n}\n.wi-wu-mostlycloudy:before {\n  content: \"\\f002\";\n}\n.wi-wu-mostlysunny:before {\n  content: \"\\f00d\";\n}\n.wi-wu-partlycloudy:before {\n  content: \"\\f002\";\n}\n.wi-wu-partlysunny:before {\n  content: \"\\f00d\";\n}\n.wi-wu-rain:before {\n  content: \"\\f01a\";\n}\n.wi-wu-sleat:before {\n  content: \"\\f0b5\";\n}\n.wi-wu-snow:before {\n  content: \"\\f01b\";\n}\n.wi-wu-sunny:before {\n  content: \"\\f00d\";\n}\n.wi-wu-tstorms:before {\n  content: \"\\f01e\";\n}\n.wi-wu-unknown:before {\n  content: \"\\f00d\";\n}\n", ""]);
+exports.push([module.i, "body{\n    background: #19508a;\n}\n\nul{\n    list-style: none;\n    padding: 0;\n}\n\ndiv.main{\n    background: gray;\n    width: 500px;\n    margin: 0 auto;\n    padding: 20px;\n    border-radius: 10px;\n}\n\ndiv.row1{\n    justify-content: space-between;\n    display: flex;\n    background: gray;\n}\n\ndiv.row1 ul li i{\n    font-size: 100px;\n}\n\ndiv.row2 ul{\n    list-style: none;\n}\n\ndiv.row2 ul li{\n    display: flex;\n    justify-content: space-between;\n    background: green;\n}\n\ndiv.row3 ul{\n    display: flex;\n    justify-content: space-around;\n}", ""]);
 
 
 /***/ }),
@@ -2890,51 +2792,6 @@ function toComment(sourceMap) {
   var data = "sourceMappingURL=data:application/json;charset=utf-8;base64,".concat(base64);
   return "/*# ".concat(data, " */");
 }
-
-/***/ }),
-
-/***/ "./node_modules/css-loader/dist/runtime/getUrl.js":
-/*!********************************************************!*\
-  !*** ./node_modules/css-loader/dist/runtime/getUrl.js ***!
-  \********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = function (url, options) {
-  if (!options) {
-    // eslint-disable-next-line no-param-reassign
-    options = {};
-  } // eslint-disable-next-line no-underscore-dangle, no-param-reassign
-
-
-  url = url.__esModule ? url.default : url;
-
-  if (typeof url !== 'string') {
-    return url;
-  } // If url is already wrapped in quotes, remove them
-
-
-  if (/^['"].*['"]$/.test(url)) {
-    // eslint-disable-next-line no-param-reassign
-    url = url.slice(1, -1);
-  }
-
-  if (options.hash) {
-    // eslint-disable-next-line no-param-reassign
-    url += options.hash;
-  } // Should url be wrapped?
-  // See https://drafts.csswg.org/css-values-3/#urls
-
-
-  if (/["'() \t\n]/.test(url) || options.needQuotes) {
-    return "\"".concat(url.replace(/"/g, '\\"').replace(/\n/g, '\\n'), "\"");
-  }
-
-  return url;
-};
 
 /***/ }),
 
@@ -3719,11 +3576,61 @@ var render = function() {
       "div",
       { staticClass: "main" },
       [
-        _vm._m(0),
+        _c("div", { staticClass: "row1" }, [
+          _c("ul", [
+            _c("li", [_c("img", { attrs: { src: _vm.icon } })]),
+            _vm._v(" "),
+            _c("li", [_vm._v(_vm._s(_vm.data.weather[0].description))]),
+            _vm._v(" "),
+            _c("li", [_vm._v(_vm._s(_vm.data.main.temp))])
+          ]),
+          _vm._v(" "),
+          _c("ul", [
+            _c("li", [_vm._v(_vm._s(_vm.day))]),
+            _vm._v(" "),
+            _c("li", [_vm._v(_vm._s(_vm.date))]),
+            _vm._v(" "),
+            _c("li", [_vm._v(_vm._s(_vm.data.name))])
+          ])
+        ]),
         _vm._v(" "),
-        _vm._m(1),
+        _c("div", { staticClass: "row2" }, [
+          _c("ul", [
+            _c("li", [
+              _c("span", [_vm._v("PRESSURE")]),
+              _vm._v(" "),
+              _c("span", [_vm._v(_vm._s(_vm.data.main.pressure))])
+            ]),
+            _vm._v(" "),
+            _c("li", [
+              _c("span", [_vm._v("HUMIDITY85")]),
+              _vm._v(" "),
+              _c("span", [_vm._v(_vm._s(_vm.data.main.humidity))])
+            ]),
+            _vm._v(" "),
+            _c("li", [
+              _c("span", [_vm._v("WIND")]),
+              _vm._v(" "),
+              _c("span", [_vm._v(_vm._s(_vm.data.wind.speed) + " km/h")])
+            ])
+          ])
+        ]),
         _vm._v(" "),
-        _vm._m(2),
+        _c("div", { staticClass: "row3" }, [
+          _c("ul", [
+            _c("div", [
+              _c("span", [_vm._v("Min. Temp")]),
+              _vm._v(" "),
+              _c("samp", [_vm._v(_vm._s(_vm.data.main.temp_min))])
+            ]),
+            _vm._v(" "),
+            _c("div", [
+              _c("span", [_vm._v("Max. Temp")]),
+              _vm._v(" "),
+              _c("samp", [_vm._v(_vm._s(_vm.data.main.temp_max))])
+            ])
+          ])
+        ]),
         _vm._v(" "),
         _c("Autocomplete", {
           staticClass: "autocomp",
@@ -3735,68 +3642,7 @@ var render = function() {
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row1" }, [
-      _c("ul", [
-        _c("li", [_c("i", { staticClass: "wi wi-day-sunny" })]),
-        _vm._v(" "),
-        _c("li", [_vm._v("1 grado")]),
-        _vm._v(" "),
-        _c("li", [_vm._v("cloundly")])
-      ]),
-      _vm._v(" "),
-      _c("ul", [
-        _c("li", [_vm._v("Wendesday")]),
-        _vm._v(" "),
-        _c("li", [_vm._v("11 Dec 2019")]),
-        _vm._v(" "),
-        _c("li", [_vm._v("London, gb")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row2" }, [
-      _c("ul", [
-        _c("li", [
-          _c("span", [_vm._v("ROUNN")]),
-          _vm._v(" "),
-          _c("span", [_vm._v("Low")])
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c("span", [_vm._v("HOMUDITY")]),
-          _vm._v(" "),
-          _c("span", [_vm._v("85%")])
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c("span", [_vm._v("WIND")]),
-          _vm._v(" "),
-          _c("span", [_vm._v("2,.1KM")])
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row3" }, [
-      _c("ul", [
-        _c("div", [_vm._v("min temp")]),
-        _vm._v(" "),
-        _c("div", [_vm._v("max temp")])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -18760,1076 +18606,6 @@ if (inBrowser && window.Vue) {
 
 /***/ }),
 
-/***/ "./node_modules/vuex/dist/vuex.esm.js":
-/*!********************************************!*\
-  !*** ./node_modules/vuex/dist/vuex.esm.js ***!
-  \********************************************/
-/*! exports provided: default, Store, install, mapState, mapMutations, mapGetters, mapActions, createNamespacedHelpers */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(global) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Store", function() { return Store; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "install", function() { return install; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mapState", function() { return mapState; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mapMutations", function() { return mapMutations; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mapGetters", function() { return mapGetters; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mapActions", function() { return mapActions; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createNamespacedHelpers", function() { return createNamespacedHelpers; });
-/**
- * vuex v3.1.2
- * (c) 2019 Evan You
- * @license MIT
- */
-function applyMixin (Vue) {
-  var version = Number(Vue.version.split('.')[0]);
-
-  if (version >= 2) {
-    Vue.mixin({ beforeCreate: vuexInit });
-  } else {
-    // override init and inject vuex init procedure
-    // for 1.x backwards compatibility.
-    var _init = Vue.prototype._init;
-    Vue.prototype._init = function (options) {
-      if ( options === void 0 ) options = {};
-
-      options.init = options.init
-        ? [vuexInit].concat(options.init)
-        : vuexInit;
-      _init.call(this, options);
-    };
-  }
-
-  /**
-   * Vuex init hook, injected into each instances init hooks list.
-   */
-
-  function vuexInit () {
-    var options = this.$options;
-    // store injection
-    if (options.store) {
-      this.$store = typeof options.store === 'function'
-        ? options.store()
-        : options.store;
-    } else if (options.parent && options.parent.$store) {
-      this.$store = options.parent.$store;
-    }
-  }
-}
-
-var target = typeof window !== 'undefined'
-  ? window
-  : typeof global !== 'undefined'
-    ? global
-    : {};
-var devtoolHook = target.__VUE_DEVTOOLS_GLOBAL_HOOK__;
-
-function devtoolPlugin (store) {
-  if (!devtoolHook) { return }
-
-  store._devtoolHook = devtoolHook;
-
-  devtoolHook.emit('vuex:init', store);
-
-  devtoolHook.on('vuex:travel-to-state', function (targetState) {
-    store.replaceState(targetState);
-  });
-
-  store.subscribe(function (mutation, state) {
-    devtoolHook.emit('vuex:mutation', mutation, state);
-  });
-}
-
-/**
- * Get the first item that pass the test
- * by second argument function
- *
- * @param {Array} list
- * @param {Function} f
- * @return {*}
- */
-
-/**
- * forEach for object
- */
-function forEachValue (obj, fn) {
-  Object.keys(obj).forEach(function (key) { return fn(obj[key], key); });
-}
-
-function isObject (obj) {
-  return obj !== null && typeof obj === 'object'
-}
-
-function isPromise (val) {
-  return val && typeof val.then === 'function'
-}
-
-function assert (condition, msg) {
-  if (!condition) { throw new Error(("[vuex] " + msg)) }
-}
-
-function partial (fn, arg) {
-  return function () {
-    return fn(arg)
-  }
-}
-
-// Base data struct for store's module, package with some attribute and method
-var Module = function Module (rawModule, runtime) {
-  this.runtime = runtime;
-  // Store some children item
-  this._children = Object.create(null);
-  // Store the origin module object which passed by programmer
-  this._rawModule = rawModule;
-  var rawState = rawModule.state;
-
-  // Store the origin module's state
-  this.state = (typeof rawState === 'function' ? rawState() : rawState) || {};
-};
-
-var prototypeAccessors = { namespaced: { configurable: true } };
-
-prototypeAccessors.namespaced.get = function () {
-  return !!this._rawModule.namespaced
-};
-
-Module.prototype.addChild = function addChild (key, module) {
-  this._children[key] = module;
-};
-
-Module.prototype.removeChild = function removeChild (key) {
-  delete this._children[key];
-};
-
-Module.prototype.getChild = function getChild (key) {
-  return this._children[key]
-};
-
-Module.prototype.update = function update (rawModule) {
-  this._rawModule.namespaced = rawModule.namespaced;
-  if (rawModule.actions) {
-    this._rawModule.actions = rawModule.actions;
-  }
-  if (rawModule.mutations) {
-    this._rawModule.mutations = rawModule.mutations;
-  }
-  if (rawModule.getters) {
-    this._rawModule.getters = rawModule.getters;
-  }
-};
-
-Module.prototype.forEachChild = function forEachChild (fn) {
-  forEachValue(this._children, fn);
-};
-
-Module.prototype.forEachGetter = function forEachGetter (fn) {
-  if (this._rawModule.getters) {
-    forEachValue(this._rawModule.getters, fn);
-  }
-};
-
-Module.prototype.forEachAction = function forEachAction (fn) {
-  if (this._rawModule.actions) {
-    forEachValue(this._rawModule.actions, fn);
-  }
-};
-
-Module.prototype.forEachMutation = function forEachMutation (fn) {
-  if (this._rawModule.mutations) {
-    forEachValue(this._rawModule.mutations, fn);
-  }
-};
-
-Object.defineProperties( Module.prototype, prototypeAccessors );
-
-var ModuleCollection = function ModuleCollection (rawRootModule) {
-  // register root module (Vuex.Store options)
-  this.register([], rawRootModule, false);
-};
-
-ModuleCollection.prototype.get = function get (path) {
-  return path.reduce(function (module, key) {
-    return module.getChild(key)
-  }, this.root)
-};
-
-ModuleCollection.prototype.getNamespace = function getNamespace (path) {
-  var module = this.root;
-  return path.reduce(function (namespace, key) {
-    module = module.getChild(key);
-    return namespace + (module.namespaced ? key + '/' : '')
-  }, '')
-};
-
-ModuleCollection.prototype.update = function update$1 (rawRootModule) {
-  update([], this.root, rawRootModule);
-};
-
-ModuleCollection.prototype.register = function register (path, rawModule, runtime) {
-    var this$1 = this;
-    if ( runtime === void 0 ) runtime = true;
-
-  if (true) {
-    assertRawModule(path, rawModule);
-  }
-
-  var newModule = new Module(rawModule, runtime);
-  if (path.length === 0) {
-    this.root = newModule;
-  } else {
-    var parent = this.get(path.slice(0, -1));
-    parent.addChild(path[path.length - 1], newModule);
-  }
-
-  // register nested modules
-  if (rawModule.modules) {
-    forEachValue(rawModule.modules, function (rawChildModule, key) {
-      this$1.register(path.concat(key), rawChildModule, runtime);
-    });
-  }
-};
-
-ModuleCollection.prototype.unregister = function unregister (path) {
-  var parent = this.get(path.slice(0, -1));
-  var key = path[path.length - 1];
-  if (!parent.getChild(key).runtime) { return }
-
-  parent.removeChild(key);
-};
-
-function update (path, targetModule, newModule) {
-  if (true) {
-    assertRawModule(path, newModule);
-  }
-
-  // update target module
-  targetModule.update(newModule);
-
-  // update nested modules
-  if (newModule.modules) {
-    for (var key in newModule.modules) {
-      if (!targetModule.getChild(key)) {
-        if (true) {
-          console.warn(
-            "[vuex] trying to add a new module '" + key + "' on hot reloading, " +
-            'manual reload is needed'
-          );
-        }
-        return
-      }
-      update(
-        path.concat(key),
-        targetModule.getChild(key),
-        newModule.modules[key]
-      );
-    }
-  }
-}
-
-var functionAssert = {
-  assert: function (value) { return typeof value === 'function'; },
-  expected: 'function'
-};
-
-var objectAssert = {
-  assert: function (value) { return typeof value === 'function' ||
-    (typeof value === 'object' && typeof value.handler === 'function'); },
-  expected: 'function or object with "handler" function'
-};
-
-var assertTypes = {
-  getters: functionAssert,
-  mutations: functionAssert,
-  actions: objectAssert
-};
-
-function assertRawModule (path, rawModule) {
-  Object.keys(assertTypes).forEach(function (key) {
-    if (!rawModule[key]) { return }
-
-    var assertOptions = assertTypes[key];
-
-    forEachValue(rawModule[key], function (value, type) {
-      assert(
-        assertOptions.assert(value),
-        makeAssertionMessage(path, key, type, value, assertOptions.expected)
-      );
-    });
-  });
-}
-
-function makeAssertionMessage (path, key, type, value, expected) {
-  var buf = key + " should be " + expected + " but \"" + key + "." + type + "\"";
-  if (path.length > 0) {
-    buf += " in module \"" + (path.join('.')) + "\"";
-  }
-  buf += " is " + (JSON.stringify(value)) + ".";
-  return buf
-}
-
-var Vue; // bind on install
-
-var Store = function Store (options) {
-  var this$1 = this;
-  if ( options === void 0 ) options = {};
-
-  // Auto install if it is not done yet and `window` has `Vue`.
-  // To allow users to avoid auto-installation in some cases,
-  // this code should be placed here. See #731
-  if (!Vue && typeof window !== 'undefined' && window.Vue) {
-    install(window.Vue);
-  }
-
-  if (true) {
-    assert(Vue, "must call Vue.use(Vuex) before creating a store instance.");
-    assert(typeof Promise !== 'undefined', "vuex requires a Promise polyfill in this browser.");
-    assert(this instanceof Store, "store must be called with the new operator.");
-  }
-
-  var plugins = options.plugins; if ( plugins === void 0 ) plugins = [];
-  var strict = options.strict; if ( strict === void 0 ) strict = false;
-
-  // store internal state
-  this._committing = false;
-  this._actions = Object.create(null);
-  this._actionSubscribers = [];
-  this._mutations = Object.create(null);
-  this._wrappedGetters = Object.create(null);
-  this._modules = new ModuleCollection(options);
-  this._modulesNamespaceMap = Object.create(null);
-  this._subscribers = [];
-  this._watcherVM = new Vue();
-  this._makeLocalGettersCache = Object.create(null);
-
-  // bind commit and dispatch to self
-  var store = this;
-  var ref = this;
-  var dispatch = ref.dispatch;
-  var commit = ref.commit;
-  this.dispatch = function boundDispatch (type, payload) {
-    return dispatch.call(store, type, payload)
-  };
-  this.commit = function boundCommit (type, payload, options) {
-    return commit.call(store, type, payload, options)
-  };
-
-  // strict mode
-  this.strict = strict;
-
-  var state = this._modules.root.state;
-
-  // init root module.
-  // this also recursively registers all sub-modules
-  // and collects all module getters inside this._wrappedGetters
-  installModule(this, state, [], this._modules.root);
-
-  // initialize the store vm, which is responsible for the reactivity
-  // (also registers _wrappedGetters as computed properties)
-  resetStoreVM(this, state);
-
-  // apply plugins
-  plugins.forEach(function (plugin) { return plugin(this$1); });
-
-  var useDevtools = options.devtools !== undefined ? options.devtools : Vue.config.devtools;
-  if (useDevtools) {
-    devtoolPlugin(this);
-  }
-};
-
-var prototypeAccessors$1 = { state: { configurable: true } };
-
-prototypeAccessors$1.state.get = function () {
-  return this._vm._data.$$state
-};
-
-prototypeAccessors$1.state.set = function (v) {
-  if (true) {
-    assert(false, "use store.replaceState() to explicit replace store state.");
-  }
-};
-
-Store.prototype.commit = function commit (_type, _payload, _options) {
-    var this$1 = this;
-
-  // check object-style commit
-  var ref = unifyObjectStyle(_type, _payload, _options);
-    var type = ref.type;
-    var payload = ref.payload;
-    var options = ref.options;
-
-  var mutation = { type: type, payload: payload };
-  var entry = this._mutations[type];
-  if (!entry) {
-    if (true) {
-      console.error(("[vuex] unknown mutation type: " + type));
-    }
-    return
-  }
-  this._withCommit(function () {
-    entry.forEach(function commitIterator (handler) {
-      handler(payload);
-    });
-  });
-  this._subscribers.forEach(function (sub) { return sub(mutation, this$1.state); });
-
-  if (
-     true &&
-    options && options.silent
-  ) {
-    console.warn(
-      "[vuex] mutation type: " + type + ". Silent option has been removed. " +
-      'Use the filter functionality in the vue-devtools'
-    );
-  }
-};
-
-Store.prototype.dispatch = function dispatch (_type, _payload) {
-    var this$1 = this;
-
-  // check object-style dispatch
-  var ref = unifyObjectStyle(_type, _payload);
-    var type = ref.type;
-    var payload = ref.payload;
-
-  var action = { type: type, payload: payload };
-  var entry = this._actions[type];
-  if (!entry) {
-    if (true) {
-      console.error(("[vuex] unknown action type: " + type));
-    }
-    return
-  }
-
-  try {
-    this._actionSubscribers
-      .filter(function (sub) { return sub.before; })
-      .forEach(function (sub) { return sub.before(action, this$1.state); });
-  } catch (e) {
-    if (true) {
-      console.warn("[vuex] error in before action subscribers: ");
-      console.error(e);
-    }
-  }
-
-  var result = entry.length > 1
-    ? Promise.all(entry.map(function (handler) { return handler(payload); }))
-    : entry[0](payload);
-
-  return result.then(function (res) {
-    try {
-      this$1._actionSubscribers
-        .filter(function (sub) { return sub.after; })
-        .forEach(function (sub) { return sub.after(action, this$1.state); });
-    } catch (e) {
-      if (true) {
-        console.warn("[vuex] error in after action subscribers: ");
-        console.error(e);
-      }
-    }
-    return res
-  })
-};
-
-Store.prototype.subscribe = function subscribe (fn) {
-  return genericSubscribe(fn, this._subscribers)
-};
-
-Store.prototype.subscribeAction = function subscribeAction (fn) {
-  var subs = typeof fn === 'function' ? { before: fn } : fn;
-  return genericSubscribe(subs, this._actionSubscribers)
-};
-
-Store.prototype.watch = function watch (getter, cb, options) {
-    var this$1 = this;
-
-  if (true) {
-    assert(typeof getter === 'function', "store.watch only accepts a function.");
-  }
-  return this._watcherVM.$watch(function () { return getter(this$1.state, this$1.getters); }, cb, options)
-};
-
-Store.prototype.replaceState = function replaceState (state) {
-    var this$1 = this;
-
-  this._withCommit(function () {
-    this$1._vm._data.$$state = state;
-  });
-};
-
-Store.prototype.registerModule = function registerModule (path, rawModule, options) {
-    if ( options === void 0 ) options = {};
-
-  if (typeof path === 'string') { path = [path]; }
-
-  if (true) {
-    assert(Array.isArray(path), "module path must be a string or an Array.");
-    assert(path.length > 0, 'cannot register the root module by using registerModule.');
-  }
-
-  this._modules.register(path, rawModule);
-  installModule(this, this.state, path, this._modules.get(path), options.preserveState);
-  // reset store to update getters...
-  resetStoreVM(this, this.state);
-};
-
-Store.prototype.unregisterModule = function unregisterModule (path) {
-    var this$1 = this;
-
-  if (typeof path === 'string') { path = [path]; }
-
-  if (true) {
-    assert(Array.isArray(path), "module path must be a string or an Array.");
-  }
-
-  this._modules.unregister(path);
-  this._withCommit(function () {
-    var parentState = getNestedState(this$1.state, path.slice(0, -1));
-    Vue.delete(parentState, path[path.length - 1]);
-  });
-  resetStore(this);
-};
-
-Store.prototype.hotUpdate = function hotUpdate (newOptions) {
-  this._modules.update(newOptions);
-  resetStore(this, true);
-};
-
-Store.prototype._withCommit = function _withCommit (fn) {
-  var committing = this._committing;
-  this._committing = true;
-  fn();
-  this._committing = committing;
-};
-
-Object.defineProperties( Store.prototype, prototypeAccessors$1 );
-
-function genericSubscribe (fn, subs) {
-  if (subs.indexOf(fn) < 0) {
-    subs.push(fn);
-  }
-  return function () {
-    var i = subs.indexOf(fn);
-    if (i > -1) {
-      subs.splice(i, 1);
-    }
-  }
-}
-
-function resetStore (store, hot) {
-  store._actions = Object.create(null);
-  store._mutations = Object.create(null);
-  store._wrappedGetters = Object.create(null);
-  store._modulesNamespaceMap = Object.create(null);
-  var state = store.state;
-  // init all modules
-  installModule(store, state, [], store._modules.root, true);
-  // reset vm
-  resetStoreVM(store, state, hot);
-}
-
-function resetStoreVM (store, state, hot) {
-  var oldVm = store._vm;
-
-  // bind store public getters
-  store.getters = {};
-  // reset local getters cache
-  store._makeLocalGettersCache = Object.create(null);
-  var wrappedGetters = store._wrappedGetters;
-  var computed = {};
-  forEachValue(wrappedGetters, function (fn, key) {
-    // use computed to leverage its lazy-caching mechanism
-    // direct inline function use will lead to closure preserving oldVm.
-    // using partial to return function with only arguments preserved in closure environment.
-    computed[key] = partial(fn, store);
-    Object.defineProperty(store.getters, key, {
-      get: function () { return store._vm[key]; },
-      enumerable: true // for local getters
-    });
-  });
-
-  // use a Vue instance to store the state tree
-  // suppress warnings just in case the user has added
-  // some funky global mixins
-  var silent = Vue.config.silent;
-  Vue.config.silent = true;
-  store._vm = new Vue({
-    data: {
-      $$state: state
-    },
-    computed: computed
-  });
-  Vue.config.silent = silent;
-
-  // enable strict mode for new vm
-  if (store.strict) {
-    enableStrictMode(store);
-  }
-
-  if (oldVm) {
-    if (hot) {
-      // dispatch changes in all subscribed watchers
-      // to force getter re-evaluation for hot reloading.
-      store._withCommit(function () {
-        oldVm._data.$$state = null;
-      });
-    }
-    Vue.nextTick(function () { return oldVm.$destroy(); });
-  }
-}
-
-function installModule (store, rootState, path, module, hot) {
-  var isRoot = !path.length;
-  var namespace = store._modules.getNamespace(path);
-
-  // register in namespace map
-  if (module.namespaced) {
-    if (store._modulesNamespaceMap[namespace] && "development" !== 'production') {
-      console.error(("[vuex] duplicate namespace " + namespace + " for the namespaced module " + (path.join('/'))));
-    }
-    store._modulesNamespaceMap[namespace] = module;
-  }
-
-  // set state
-  if (!isRoot && !hot) {
-    var parentState = getNestedState(rootState, path.slice(0, -1));
-    var moduleName = path[path.length - 1];
-    store._withCommit(function () {
-      if (true) {
-        if (moduleName in parentState) {
-          console.warn(
-            ("[vuex] state field \"" + moduleName + "\" was overridden by a module with the same name at \"" + (path.join('.')) + "\"")
-          );
-        }
-      }
-      Vue.set(parentState, moduleName, module.state);
-    });
-  }
-
-  var local = module.context = makeLocalContext(store, namespace, path);
-
-  module.forEachMutation(function (mutation, key) {
-    var namespacedType = namespace + key;
-    registerMutation(store, namespacedType, mutation, local);
-  });
-
-  module.forEachAction(function (action, key) {
-    var type = action.root ? key : namespace + key;
-    var handler = action.handler || action;
-    registerAction(store, type, handler, local);
-  });
-
-  module.forEachGetter(function (getter, key) {
-    var namespacedType = namespace + key;
-    registerGetter(store, namespacedType, getter, local);
-  });
-
-  module.forEachChild(function (child, key) {
-    installModule(store, rootState, path.concat(key), child, hot);
-  });
-}
-
-/**
- * make localized dispatch, commit, getters and state
- * if there is no namespace, just use root ones
- */
-function makeLocalContext (store, namespace, path) {
-  var noNamespace = namespace === '';
-
-  var local = {
-    dispatch: noNamespace ? store.dispatch : function (_type, _payload, _options) {
-      var args = unifyObjectStyle(_type, _payload, _options);
-      var payload = args.payload;
-      var options = args.options;
-      var type = args.type;
-
-      if (!options || !options.root) {
-        type = namespace + type;
-        if ( true && !store._actions[type]) {
-          console.error(("[vuex] unknown local action type: " + (args.type) + ", global type: " + type));
-          return
-        }
-      }
-
-      return store.dispatch(type, payload)
-    },
-
-    commit: noNamespace ? store.commit : function (_type, _payload, _options) {
-      var args = unifyObjectStyle(_type, _payload, _options);
-      var payload = args.payload;
-      var options = args.options;
-      var type = args.type;
-
-      if (!options || !options.root) {
-        type = namespace + type;
-        if ( true && !store._mutations[type]) {
-          console.error(("[vuex] unknown local mutation type: " + (args.type) + ", global type: " + type));
-          return
-        }
-      }
-
-      store.commit(type, payload, options);
-    }
-  };
-
-  // getters and state object must be gotten lazily
-  // because they will be changed by vm update
-  Object.defineProperties(local, {
-    getters: {
-      get: noNamespace
-        ? function () { return store.getters; }
-        : function () { return makeLocalGetters(store, namespace); }
-    },
-    state: {
-      get: function () { return getNestedState(store.state, path); }
-    }
-  });
-
-  return local
-}
-
-function makeLocalGetters (store, namespace) {
-  if (!store._makeLocalGettersCache[namespace]) {
-    var gettersProxy = {};
-    var splitPos = namespace.length;
-    Object.keys(store.getters).forEach(function (type) {
-      // skip if the target getter is not match this namespace
-      if (type.slice(0, splitPos) !== namespace) { return }
-
-      // extract local getter type
-      var localType = type.slice(splitPos);
-
-      // Add a port to the getters proxy.
-      // Define as getter property because
-      // we do not want to evaluate the getters in this time.
-      Object.defineProperty(gettersProxy, localType, {
-        get: function () { return store.getters[type]; },
-        enumerable: true
-      });
-    });
-    store._makeLocalGettersCache[namespace] = gettersProxy;
-  }
-
-  return store._makeLocalGettersCache[namespace]
-}
-
-function registerMutation (store, type, handler, local) {
-  var entry = store._mutations[type] || (store._mutations[type] = []);
-  entry.push(function wrappedMutationHandler (payload) {
-    handler.call(store, local.state, payload);
-  });
-}
-
-function registerAction (store, type, handler, local) {
-  var entry = store._actions[type] || (store._actions[type] = []);
-  entry.push(function wrappedActionHandler (payload) {
-    var res = handler.call(store, {
-      dispatch: local.dispatch,
-      commit: local.commit,
-      getters: local.getters,
-      state: local.state,
-      rootGetters: store.getters,
-      rootState: store.state
-    }, payload);
-    if (!isPromise(res)) {
-      res = Promise.resolve(res);
-    }
-    if (store._devtoolHook) {
-      return res.catch(function (err) {
-        store._devtoolHook.emit('vuex:error', err);
-        throw err
-      })
-    } else {
-      return res
-    }
-  });
-}
-
-function registerGetter (store, type, rawGetter, local) {
-  if (store._wrappedGetters[type]) {
-    if (true) {
-      console.error(("[vuex] duplicate getter key: " + type));
-    }
-    return
-  }
-  store._wrappedGetters[type] = function wrappedGetter (store) {
-    return rawGetter(
-      local.state, // local state
-      local.getters, // local getters
-      store.state, // root state
-      store.getters // root getters
-    )
-  };
-}
-
-function enableStrictMode (store) {
-  store._vm.$watch(function () { return this._data.$$state }, function () {
-    if (true) {
-      assert(store._committing, "do not mutate vuex store state outside mutation handlers.");
-    }
-  }, { deep: true, sync: true });
-}
-
-function getNestedState (state, path) {
-  return path.length
-    ? path.reduce(function (state, key) { return state[key]; }, state)
-    : state
-}
-
-function unifyObjectStyle (type, payload, options) {
-  if (isObject(type) && type.type) {
-    options = payload;
-    payload = type;
-    type = type.type;
-  }
-
-  if (true) {
-    assert(typeof type === 'string', ("expects string as the type, but found " + (typeof type) + "."));
-  }
-
-  return { type: type, payload: payload, options: options }
-}
-
-function install (_Vue) {
-  if (Vue && _Vue === Vue) {
-    if (true) {
-      console.error(
-        '[vuex] already installed. Vue.use(Vuex) should be called only once.'
-      );
-    }
-    return
-  }
-  Vue = _Vue;
-  applyMixin(Vue);
-}
-
-/**
- * Reduce the code which written in Vue.js for getting the state.
- * @param {String} [namespace] - Module's namespace
- * @param {Object|Array} states # Object's item can be a function which accept state and getters for param, you can do something for state and getters in it.
- * @param {Object}
- */
-var mapState = normalizeNamespace(function (namespace, states) {
-  var res = {};
-  if ( true && !isValidMap(states)) {
-    console.error('[vuex] mapState: mapper parameter must be either an Array or an Object');
-  }
-  normalizeMap(states).forEach(function (ref) {
-    var key = ref.key;
-    var val = ref.val;
-
-    res[key] = function mappedState () {
-      var state = this.$store.state;
-      var getters = this.$store.getters;
-      if (namespace) {
-        var module = getModuleByNamespace(this.$store, 'mapState', namespace);
-        if (!module) {
-          return
-        }
-        state = module.context.state;
-        getters = module.context.getters;
-      }
-      return typeof val === 'function'
-        ? val.call(this, state, getters)
-        : state[val]
-    };
-    // mark vuex getter for devtools
-    res[key].vuex = true;
-  });
-  return res
-});
-
-/**
- * Reduce the code which written in Vue.js for committing the mutation
- * @param {String} [namespace] - Module's namespace
- * @param {Object|Array} mutations # Object's item can be a function which accept `commit` function as the first param, it can accept anthor params. You can commit mutation and do any other things in this function. specially, You need to pass anthor params from the mapped function.
- * @return {Object}
- */
-var mapMutations = normalizeNamespace(function (namespace, mutations) {
-  var res = {};
-  if ( true && !isValidMap(mutations)) {
-    console.error('[vuex] mapMutations: mapper parameter must be either an Array or an Object');
-  }
-  normalizeMap(mutations).forEach(function (ref) {
-    var key = ref.key;
-    var val = ref.val;
-
-    res[key] = function mappedMutation () {
-      var args = [], len = arguments.length;
-      while ( len-- ) args[ len ] = arguments[ len ];
-
-      // Get the commit method from store
-      var commit = this.$store.commit;
-      if (namespace) {
-        var module = getModuleByNamespace(this.$store, 'mapMutations', namespace);
-        if (!module) {
-          return
-        }
-        commit = module.context.commit;
-      }
-      return typeof val === 'function'
-        ? val.apply(this, [commit].concat(args))
-        : commit.apply(this.$store, [val].concat(args))
-    };
-  });
-  return res
-});
-
-/**
- * Reduce the code which written in Vue.js for getting the getters
- * @param {String} [namespace] - Module's namespace
- * @param {Object|Array} getters
- * @return {Object}
- */
-var mapGetters = normalizeNamespace(function (namespace, getters) {
-  var res = {};
-  if ( true && !isValidMap(getters)) {
-    console.error('[vuex] mapGetters: mapper parameter must be either an Array or an Object');
-  }
-  normalizeMap(getters).forEach(function (ref) {
-    var key = ref.key;
-    var val = ref.val;
-
-    // The namespace has been mutated by normalizeNamespace
-    val = namespace + val;
-    res[key] = function mappedGetter () {
-      if (namespace && !getModuleByNamespace(this.$store, 'mapGetters', namespace)) {
-        return
-      }
-      if ( true && !(val in this.$store.getters)) {
-        console.error(("[vuex] unknown getter: " + val));
-        return
-      }
-      return this.$store.getters[val]
-    };
-    // mark vuex getter for devtools
-    res[key].vuex = true;
-  });
-  return res
-});
-
-/**
- * Reduce the code which written in Vue.js for dispatch the action
- * @param {String} [namespace] - Module's namespace
- * @param {Object|Array} actions # Object's item can be a function which accept `dispatch` function as the first param, it can accept anthor params. You can dispatch action and do any other things in this function. specially, You need to pass anthor params from the mapped function.
- * @return {Object}
- */
-var mapActions = normalizeNamespace(function (namespace, actions) {
-  var res = {};
-  if ( true && !isValidMap(actions)) {
-    console.error('[vuex] mapActions: mapper parameter must be either an Array or an Object');
-  }
-  normalizeMap(actions).forEach(function (ref) {
-    var key = ref.key;
-    var val = ref.val;
-
-    res[key] = function mappedAction () {
-      var args = [], len = arguments.length;
-      while ( len-- ) args[ len ] = arguments[ len ];
-
-      // get dispatch function from store
-      var dispatch = this.$store.dispatch;
-      if (namespace) {
-        var module = getModuleByNamespace(this.$store, 'mapActions', namespace);
-        if (!module) {
-          return
-        }
-        dispatch = module.context.dispatch;
-      }
-      return typeof val === 'function'
-        ? val.apply(this, [dispatch].concat(args))
-        : dispatch.apply(this.$store, [val].concat(args))
-    };
-  });
-  return res
-});
-
-/**
- * Rebinding namespace param for mapXXX function in special scoped, and return them by simple object
- * @param {String} namespace
- * @return {Object}
- */
-var createNamespacedHelpers = function (namespace) { return ({
-  mapState: mapState.bind(null, namespace),
-  mapGetters: mapGetters.bind(null, namespace),
-  mapMutations: mapMutations.bind(null, namespace),
-  mapActions: mapActions.bind(null, namespace)
-}); };
-
-/**
- * Normalize the map
- * normalizeMap([1, 2, 3]) => [ { key: 1, val: 1 }, { key: 2, val: 2 }, { key: 3, val: 3 } ]
- * normalizeMap({a: 1, b: 2, c: 3}) => [ { key: 'a', val: 1 }, { key: 'b', val: 2 }, { key: 'c', val: 3 } ]
- * @param {Array|Object} map
- * @return {Object}
- */
-function normalizeMap (map) {
-  if (!isValidMap(map)) {
-    return []
-  }
-  return Array.isArray(map)
-    ? map.map(function (key) { return ({ key: key, val: key }); })
-    : Object.keys(map).map(function (key) { return ({ key: key, val: map[key] }); })
-}
-
-/**
- * Validate whether given map is valid or not
- * @param {*} map
- * @return {Boolean}
- */
-function isValidMap (map) {
-  return Array.isArray(map) || isObject(map)
-}
-
-/**
- * Return a function expect two param contains namespace and map. it will normalize the namespace and then the param's function will handle the new namespace and the map.
- * @param {Function} fn
- * @return {Function}
- */
-function normalizeNamespace (fn) {
-  return function (namespace, map) {
-    if (typeof namespace !== 'string') {
-      map = namespace;
-      namespace = '';
-    } else if (namespace.charAt(namespace.length - 1) !== '/') {
-      namespace += '/';
-    }
-    return fn(namespace, map)
-  }
-}
-
-/**
- * Search a special module from store by namespace. if module not exist, print error message.
- * @param {Object} store
- * @param {String} helper
- * @param {String} namespace
- * @return {Object}
- */
-function getModuleByNamespace (store, helper, namespace) {
-  var module = store._modulesNamespaceMap[namespace];
-  if ( true && !module) {
-    console.error(("[vuex] module namespace not found in " + helper + "(): " + namespace));
-  }
-  return module
-}
-
-var index_esm = {
-  Store: Store,
-  install: install,
-  version: '3.1.2',
-  mapState: mapState,
-  mapMutations: mapMutations,
-  mapGetters: mapGetters,
-  mapActions: mapActions,
-  createNamespacedHelpers: createNamespacedHelpers
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (index_esm);
-
-
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
-
-/***/ }),
-
 /***/ "./node_modules/webpack/buildin/global.js":
 /*!***********************************!*\
   !*** (webpack)/buildin/global.js ***!
@@ -19865,21 +18641,10 @@ module.exports = g;
 /*!***********************************!*\
   !*** ./src/assets/countries.json ***!
   \***********************************/
-/*! exports provided: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196, default */
+/*! exports provided: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215, 216, 217, 218, 219, 220, 221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231, 232, 233, 234, 235, 236, 237, 238, 239, 240, 241, 242, 243, 244, 245, 246, 247, 248, 249, 250, 251, 252, 253, 254, 255, 256, 257, 258, 259, 260, 261, 262, 263, 264, 265, 266, 267, 268, 269, 270, 271, 272, 273, 274, 275, 276, 277, 278, 279, 280, 281, 282, 283, 284, 285, 286, 287, 288, 289, 290, 291, 292, 293, 294, 295, 296, 297, 298, 299, 300, 301, 302, 303, 304, 305, 306, 307, 308, 309, 310, 311, 312, 313, 314, 315, 316, 317, 318, 319, 320, 321, 322, 323, 324, 325, 326, 327, 328, 329, 330, 331, 332, 333, 334, 335, 336, 337, 338, 339, 340, 341, 342, 343, 344, 345, 346, 347, 348, 349, 350, 351, 352, 353, 354, 355, 356, 357, 358, 359, 360, 361, 362, 363, 364, 365, 366, 367, 368, 369, 370, 371, 372, 373, 374, 375, 376, 377, 378, 379, 380, 381, 382, 383, 384, 385, 386, 387, 388, 389, 390, 391, 392, 393, 394, 395, 396, 397, 398, 399, 400, 401, 402, 403, 404, 405, 406, 407, 408, 409, 410, 411, 412, 413, 414, 415, 416, 417, 418, 419, 420, 421, 422, 423, 424, 425, 426, 427, 428, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("[\"Afghanistan\",\"Albania\",\"Algeria\",\"Andorra\",\"Angola\",\"Antigua & Barbuda\",\"Argentina\",\"Armenia\",\"Australia\",\"Austria\",\"Azerbaijan\",\"Bahamas\",\"Bahrain\",\"Bangladesh\",\"Barbados\",\"Belarus\",\"Belgium\",\"Belize\",\"Benin\",\"Bhutan\",\"Bolivia\",\"Bosnia & Herzegovina\",\"Botswana\",\"Brazil\",\"Brunei\",\"Bulgaria\",\"Burkina Faso\",\"Burundi\",\"Cambodia\",\"Cameroon\",\"Canada\",\"Cape Verde\",\"Central African Republic\",\"Chad\",\"Chile\",\"China\",\"Colombia\",\"Comoros\",\"Congo\",\"Congo Democratic Republic\",\"Costa Rica\",\"Cote D'Ivoire\",\"Croatia\",\"Cuba\",\"Cyprus\",\"Czech Republic\",\"Denmark\",\"Djibouti\",\"Dominica\",\"Dominican Republic\",\"East Timor\",\"Ecuador\",\"Egypt\",\"El Salvador\",\"Equatorial Guinea\",\"Eritrea\",\"Estonia\",\"Ethiopia\",\"Fiji\",\"Finland\",\"France\",\"Gabon\",\"Gambia\",\"Georgia\",\"Germany\",\"Ghana\",\"Greece\",\"Grenada\",\"Guatemala\",\"Guinea\",\"Guinea-Bissau\",\"Guyana\",\"Haiti\",\"Honduras\",\"Hungary\",\"Iceland\",\"India\",\"Indonesia\",\"Iran\",\"Iraq\",\"Ireland\",\"Israel\",\"Italy\",\"Jamaica\",\"Japan\",\"Jordan\",\"Kazakhstan\",\"Kenya\",\"Kiribati\",\"Korea North\",\"Korea South\",\"Kosovo\",\"Kuwait\",\"Kyrgyzstan\",\"Laos\",\"Latvia\",\"Lebanon\",\"Lesotho\",\"Liberia\",\"Libya\",\"Liechtenstein\",\"Lithuania\",\"Luxembourg\",\"Macedonia\",\"Madagascar\",\"Malawi\",\"Malaysia\",\"Maldives\",\"Mali\",\"Malta\",\"Marshall Islands\",\"Mauritania\",\"Mauritius\",\"Mexico\",\"Micronesia\",\"Moldova\",\"Monaco\",\"Mongolia\",\"Montenegro\",\"Morocco\",\"Mozambique\",\"Myanmar (Burma)\",\"Namibia\",\"Nauru\",\"Nepal\",\"New Zealand\",\"Nicaragua\",\"Niger\",\"Nigeria\",\"Norway\",\"Oman\",\"Pakistan\",\"Palau\",\"Palestinian State*\",\"Panama\",\"Papua New Guinea\",\"Paraguay\",\"Peru\",\"Poland\",\"Portugal\",\"Qatar\",\"Romania\",\"Russia\",\"Rwanda\",\"Samoa\",\"San Marino\",\"Sao Tome & Principe\",\"Saudi Arabia\",\"Senegal\",\"Serbia\",\"Seychelles\",\"Sierra Leone\",\"Singapore\",\"Slovakia\",\"Slovenia\",\"Solomon Islands\",\"Somalia\",\"South Africa\",\"South Sudan\",\"Spain\",\"Sri Lanka\",\"St. Kitts & Nevis\",\"St. Lucia\",\"St. Vincent & The Grenadines\",\"Sudan\",\"Suriname\",\"Swaziland\",\"Sweden\",\"Switzerland\",\"Syria\",\"Taiwan\",\"Tajikistan\",\"Tanzania\",\"Thailand\",\"The Netherlands\",\"The Philippines\",\"Togo\",\"Tonga\",\"Trinidad & Tobago\",\"Tunisia\",\"Turkey\",\"Turkmenistan\",\"Tuvalu\",\"Uganda\",\"Ukraine\",\"United Arab Emirates\",\"United Kingdom\",\"United States Of America\",\"Uruguay\",\"Uzbekistan\",\"Vanuatu\",\"Vatican City (Holy See)\",\"Venezuela\",\"Vietnam\",\"Yemen\",\"Zambia\",\"Zimbabwe\"]");
-
-/***/ }),
-
-/***/ "./src/assets/icons.json":
-/*!*******************************!*\
-  !*** ./src/assets/icons.json ***!
-  \*******************************/
-/*! exports provided: 200, 201, 202, 210, 211, 212, 221, 230, 231, 232, 300, 301, 302, 310, 311, 312, 313, 314, 321, 500, 501, 502, 503, 504, 511, 520, 521, 522, 531, 600, 601, 602, 611, 612, 615, 616, 620, 621, 622, 701, 711, 721, 731, 741, 751, 761, 762, 771, 781, 800, 801, 802, 803, 804, 900, 901, 902, 903, 904, 905, 906, 951, 952, 953, 954, 955, 956, 957, 958, 959, 960, 961, 962, default */
-/***/ (function(module) {
-
-module.exports = JSON.parse("{\"200\":{\"label\":\"thunderstorm with light rain\",\"icon\":\"storm-showers\"},\"201\":{\"label\":\"thunderstorm with rain\",\"icon\":\"storm-showers\"},\"202\":{\"label\":\"thunderstorm with heavy rain\",\"icon\":\"storm-showers\"},\"210\":{\"label\":\"light thunderstorm\",\"icon\":\"storm-showers\"},\"211\":{\"label\":\"thunderstorm\",\"icon\":\"thunderstorm\"},\"212\":{\"label\":\"heavy thunderstorm\",\"icon\":\"thunderstorm\"},\"221\":{\"label\":\"ragged thunderstorm\",\"icon\":\"thunderstorm\"},\"230\":{\"label\":\"thunderstorm with light drizzle\",\"icon\":\"storm-showers\"},\"231\":{\"label\":\"thunderstorm with drizzle\",\"icon\":\"storm-showers\"},\"232\":{\"label\":\"thunderstorm with heavy drizzle\",\"icon\":\"storm-showers\"},\"300\":{\"label\":\"light intensity drizzle\",\"icon\":\"sprinkle\"},\"301\":{\"label\":\"drizzle\",\"icon\":\"sprinkle\"},\"302\":{\"label\":\"heavy intensity drizzle\",\"icon\":\"sprinkle\"},\"310\":{\"label\":\"light intensity drizzle rain\",\"icon\":\"sprinkle\"},\"311\":{\"label\":\"drizzle rain\",\"icon\":\"sprinkle\"},\"312\":{\"label\":\"heavy intensity drizzle rain\",\"icon\":\"sprinkle\"},\"313\":{\"label\":\"shower rain and drizzle\",\"icon\":\"sprinkle\"},\"314\":{\"label\":\"heavy shower rain and drizzle\",\"icon\":\"sprinkle\"},\"321\":{\"label\":\"shower drizzle\",\"icon\":\"sprinkle\"},\"500\":{\"label\":\"light rain\",\"icon\":\"rain\"},\"501\":{\"label\":\"moderate rain\",\"icon\":\"rain\"},\"502\":{\"label\":\"heavy intensity rain\",\"icon\":\"rain\"},\"503\":{\"label\":\"very heavy rain\",\"icon\":\"rain\"},\"504\":{\"label\":\"extreme rain\",\"icon\":\"rain\"},\"511\":{\"label\":\"freezing rain\",\"icon\":\"rain-mix\"},\"520\":{\"label\":\"light intensity shower rain\",\"icon\":\"showers\"},\"521\":{\"label\":\"shower rain\",\"icon\":\"showers\"},\"522\":{\"label\":\"heavy intensity shower rain\",\"icon\":\"showers\"},\"531\":{\"label\":\"ragged shower rain\",\"icon\":\"showers\"},\"600\":{\"label\":\"light snow\",\"icon\":\"snow\"},\"601\":{\"label\":\"snow\",\"icon\":\"snow\"},\"602\":{\"label\":\"heavy snow\",\"icon\":\"snow\"},\"611\":{\"label\":\"sleet\",\"icon\":\"sleet\"},\"612\":{\"label\":\"shower sleet\",\"icon\":\"sleet\"},\"615\":{\"label\":\"light rain and snow\",\"icon\":\"rain-mix\"},\"616\":{\"label\":\"rain and snow\",\"icon\":\"rain-mix\"},\"620\":{\"label\":\"light shower snow\",\"icon\":\"rain-mix\"},\"621\":{\"label\":\"shower snow\",\"icon\":\"rain-mix\"},\"622\":{\"label\":\"heavy shower snow\",\"icon\":\"rain-mix\"},\"701\":{\"label\":\"mist\",\"icon\":\"sprinkle\"},\"711\":{\"label\":\"smoke\",\"icon\":\"smoke\"},\"721\":{\"label\":\"haze\",\"icon\":\"day-haze\"},\"731\":{\"label\":\"sand, dust whirls\",\"icon\":\"cloudy-gusts\"},\"741\":{\"label\":\"fog\",\"icon\":\"fog\"},\"751\":{\"label\":\"sand\",\"icon\":\"cloudy-gusts\"},\"761\":{\"label\":\"dust\",\"icon\":\"dust\"},\"762\":{\"label\":\"volcanic ash\",\"icon\":\"smog\"},\"771\":{\"label\":\"squalls\",\"icon\":\"day-windy\"},\"781\":{\"label\":\"tornado\",\"icon\":\"tornado\"},\"800\":{\"label\":\"clear sky\",\"icon\":\"sunny\"},\"801\":{\"label\":\"few clouds\",\"icon\":\"cloudy\"},\"802\":{\"label\":\"scattered clouds\",\"icon\":\"cloudy\"},\"803\":{\"label\":\"broken clouds\",\"icon\":\"cloudy\"},\"804\":{\"label\":\"overcast clouds\",\"icon\":\"cloudy\"},\"900\":{\"label\":\"tornado\",\"icon\":\"tornado\"},\"901\":{\"label\":\"tropical storm\",\"icon\":\"hurricane\"},\"902\":{\"label\":\"hurricane\",\"icon\":\"hurricane\"},\"903\":{\"label\":\"cold\",\"icon\":\"snowflake-cold\"},\"904\":{\"label\":\"hot\",\"icon\":\"hot\"},\"905\":{\"label\":\"windy\",\"icon\":\"windy\"},\"906\":{\"label\":\"hail\",\"icon\":\"hail\"},\"951\":{\"label\":\"calm\",\"icon\":\"sunny\"},\"952\":{\"label\":\"light breeze\",\"icon\":\"cloudy-gusts\"},\"953\":{\"label\":\"gentle breeze\",\"icon\":\"cloudy-gusts\"},\"954\":{\"label\":\"moderate breeze\",\"icon\":\"cloudy-gusts\"},\"955\":{\"label\":\"fresh breeze\",\"icon\":\"cloudy-gusts\"},\"956\":{\"label\":\"strong breeze\",\"icon\":\"cloudy-gusts\"},\"957\":{\"label\":\"high wind, near gale\",\"icon\":\"cloudy-gusts\"},\"958\":{\"label\":\"gale\",\"icon\":\"cloudy-gusts\"},\"959\":{\"label\":\"severe gale\",\"icon\":\"cloudy-gusts\"},\"960\":{\"label\":\"storm\",\"icon\":\"thunderstorm\"},\"961\":{\"label\":\"violent storm\",\"icon\":\"thunderstorm\"},\"962\":{\"label\":\"hurricane\",\"icon\":\"cloudy-gusts\"}}");
+module.exports = JSON.parse("[\"Afghanistan\",\"Albania\",\"Algeria\",\"Andorra\",\"Angola\",\"Antigua & Barbuda\",\"Argentina\",\"Armenia\",\"Australia\",\"Austria\",\"Azerbaijan\",\"Bahamas\",\"Bahrain\",\"Bangladesh\",\"Barbados\",\"Belarus\",\"Belgium\",\"Belize\",\"Benin\",\"Bhutan\",\"Bolivia\",\"Bosnia & Herzegovina\",\"Botswana\",\"Brazil\",\"Brunei\",\"Bulgaria\",\"Burkina Faso\",\"Burundi\",\"Cambodia\",\"Cameroon\",\"Canada\",\"Cape Verde\",\"Central African Republic\",\"Chad\",\"Chile\",\"China\",\"Colombia\",\"Comoros\",\"Congo\",\"Congo Democratic Republic\",\"Costa Rica\",\"Cote D'Ivoire\",\"Croatia\",\"Cuba\",\"Cyprus\",\"Czech Republic\",\"Denmark\",\"Djibouti\",\"Dominica\",\"Dominican Republic\",\"East Timor\",\"Ecuador\",\"Egypt\",\"El Salvador\",\"Equatorial Guinea\",\"Eritrea\",\"Estonia\",\"Ethiopia\",\"Fiji\",\"Finland\",\"France\",\"Gabon\",\"Gambia\",\"Georgia\",\"Germany\",\"Ghana\",\"Greece\",\"Grenada\",\"Guatemala\",\"Guinea\",\"Guinea-Bissau\",\"Guyana\",\"Haiti\",\"Honduras\",\"Hungary\",\"Iceland\",\"India\",\"Indonesia\",\"Iran\",\"Iraq\",\"Ireland\",\"Israel\",\"Italy\",\"Jamaica\",\"Japan\",\"Jordan\",\"Kazakhstan\",\"Kenya\",\"Kiribati\",\"Korea North\",\"Korea South\",\"Kosovo\",\"Kuwait\",\"Kyrgyzstan\",\"Laos\",\"Latvia\",\"Lebanon\",\"Lesotho\",\"Liberia\",\"Libya\",\"Liechtenstein\",\"Lithuania\",\"Luxembourg\",\"Macedonia\",\"Madagascar\",\"Malawi\",\"Malaysia\",\"Maldives\",\"Mali\",\"Malta\",\"Marshall Islands\",\"Mauritania\",\"Mauritius\",\"Mexico\",\"Micronesia\",\"Moldova\",\"Monaco\",\"Mongolia\",\"Montenegro\",\"Morocco\",\"Mozambique\",\"Myanmar (Burma)\",\"Namibia\",\"Nauru\",\"Nepal\",\"New Zealand\",\"Nicaragua\",\"Niger\",\"Nigeria\",\"Norway\",\"Oman\",\"Pakistan\",\"Palau\",\"Palestinian State*\",\"Panama\",\"Papua New Guinea\",\"Paraguay\",\"Peru\",\"Poland\",\"Portugal\",\"Qatar\",\"Romania\",\"Russia\",\"Rwanda\",\"Samoa\",\"San Marino\",\"Sao Tome & Principe\",\"Saudi Arabia\",\"Senegal\",\"Serbia\",\"Seychelles\",\"Sierra Leone\",\"Singapore\",\"Slovakia\",\"Slovenia\",\"Solomon Islands\",\"Somalia\",\"South Africa\",\"South Sudan\",\"Spain\",\"Sri Lanka\",\"St. Kitts & Nevis\",\"St. Lucia\",\"St. Vincent & The Grenadines\",\"Sudan\",\"Suriname\",\"Swaziland\",\"Sweden\",\"Switzerland\",\"Syria\",\"Taiwan\",\"Tajikistan\",\"Tanzania\",\"Thailand\",\"The Netherlands\",\"The Philippines\",\"Togo\",\"Tonga\",\"Trinidad & Tobago\",\"Tunisia\",\"Turkey\",\"Turkmenistan\",\"Tuvalu\",\"Uganda\",\"Ukraine\",\"United Arab Emirates\",\"United Kingdom\",\"United States Of America\",\"Uruguay\",\"Uzbekistan\",\"Vanuatu\",\"Vatican City (Holy See)\",\"Venezuela\",\"Vietnam\",\"Yemen\",\"Zambia\",\"Zimbabwe\",\"Tirana\",\"Alger\",\"Fagatogo\",\"Andorra la Vella\",\"Luanda\",\"The Valley\",\"Saint John's\",\"Buenos Aires\",\"Yerevan\",\"Oranjestad\",\"Canberra\",\"Wien\",\"Baku\",\"Nassau\",\"al-Manama\",\"Dhaka\",\"Bridgetown\",\"Minsk\",\"Bruxelles [Brussel]\",\"Belmopan\",\"Porto-Novo\",\"Hamilton\",\"Thimphu\",\"La Paz\",\"Sarajevo\",\"Gaborone\",\"Brasília\",\"Bandar Seri Begawan\",\"Sofia\",\"Ouagadougou\",\"Bujumbura\",\"Phnom Penh\",\"Yaound\",\"Ottawa\",\"Praia\",\"George Town\",\"Bangui\",\"N'Djam\",\"Santiago de Chile\",\"Peking\",\"Flying Fish Cove\",\"West Island\",\"Santaf\",\"Moroni\",\"Brazzaville\",\"Avarua\",\"San Jos\",\"Zagreb\",\"La Habana\",\"Nicosia\",\"Praha\",\"Copenhagen\",\"Djibouti\",\"Roseau\",\"Santo Domingo de Guzm\",\"Dili\",\"Quito\",\"Cairo\",\"San Salvador\",\"London\",\"Malabo\",\"Asmara\",\"Tallinn\",\"Addis Abeba\",\"Stanley\",\"Tórshavn\",\"Suva\",\"Helsinki [Helsingfors]\",\"Paris\",\"Cayenne\",\"Papeete\",\"Libreville\",\"Banjul\",\"Tbilisi\",\"Berlin\",\"Accra\",\"Gibraltar\",\"Athenai\",\"Nuuk\",\"Saint George's\",\"Basse-Terre\",\"Aga\",\"Ciudad de Guatemala\",\"Conakry\",\"Bissau\",\"Georgetown\",\"Port-au-Prince\",\"Citt\",\"Tegucigalpa\",\"Victoria\",\"Budapest\",\"Reykjav\",\"New Delhi\",\"Jakarta\",\"Tehran\",\"Baghdad\",\"Dublin\",\"Jerusalem\",\"Roma\",\"Yamoussoukro\",\"Kingston\",\"Tokyo\",\"Amman\",\"Astana\",\"Nairobi\",\"Bairiki\",\"Kuwait\",\"Bishkek\",\"Vientiane\",\"Riga\",\"Beirut\",\"Maseru\",\"Monrovia\",\"Tripoli\",\"Vaduz\",\"Vilnius\",\"Luxembourg [Luxemburg/L\",\"Macao\",\"Skopje\",\"Antananarivo\",\"Lilongwe\",\"Kuala Lumpur\",\"Male\",\"Bamako\",\"Valletta\",\"Dalap-Uliga-Darrit\",\"Fort-de-France\",\"Nouakchott\",\"Port-Louis\",\"Mamoutzou\",\"Ciudad de M\",\"Palikir\",\"Chisinau\",\"Monaco-Ville\",\"Ulan Bator\",\"Plymouth\",\"Rabat\",\"Maputo\",\"Rangoon (Yangon)\",\"Windhoek\",\"Yaren\",\"Kathmandu\",\"Amsterdam\",\"Willemstad\",\"Noum\",\"Wellington\",\"Managua\",\"Niamey\",\"Abuja\",\"Alofi\",\"Kingston\",\"Pyongyang\",\"Belfast\",\"Garapan\",\"Oslo\",\"Masqat\",\"Islamabad\",\"Koror\",\"Gaza\",\"Ciudad de Panam\",\"Port Moresby\",\"Asunci\",\"Lima\",\"Manila\",\"Adamstown\",\"Warszawa\",\"Lisboa\",\"San Juan\",\"Doha\",\"Saint-Denis\",\"Bucuresti\",\"Moscow\",\"Kigali\",\"Jamestown\",\"Basseterre\",\"Castries\",\"Saint-Pierre\",\"Kingstown\",\"Apia\",\"San Marino\",\"S\",\"Riyadh\",\"Edinburgh\",\"Dakar\",\"Victoria\",\"Freetown\",\"Singapore\",\"Bratislava\",\"Ljubljana\",\"Honiara\",\"Mogadishu\",\"Pretoria\",\"Seoul\",\"Juba\",\"Madrid\",\"Khartum\",\"Paramaribo\",\"Longyearbyen\",\"Mbabane\",\"Stockholm\",\"Bern\",\"Damascus\",\"Dushanbe\",\"Dodoma\",\"Bangkok\",\"Lom\",\"Fakaofo\",\"Nuku'alofa\",\"Port-of-Spain\",\"Tunis\",\"Ankara\",\"Ashgabat\",\"Cockburn Town\",\"Funafuti\",\"Kampala\",\"Kyiv\",\"Abu Dhabi\",\"Washington\",\"Montevideo\",\"Toskent\",\"Port-Vila\",\"Caracas\",\"Hanoi\",\"Road Town\",\"Charlotte Amalie\",\"Cardiff\",\"Mata-Utu\",\"El-Aai\",\"Sanaa\",\"Beograd\",\"Lusaka\",\"Harare\"]");
 
 /***/ }),
 
@@ -19910,98 +18675,6 @@ if (content.locals) {
 
 /***/ }),
 
-/***/ "./src/css/weather-icons.css":
-/*!***********************************!*\
-  !*** ./src/css/weather-icons.css ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var content = __webpack_require__(/*! !../../node_modules/css-loader/dist/cjs.js!./weather-icons.css */ "./node_modules/css-loader/dist/cjs.js!./src/css/weather-icons.css");
-
-if (typeof content === 'string') {
-  content = [[module.i, content, '']];
-}
-
-var options = {}
-
-options.insert = "head";
-options.singleton = false;
-
-var update = __webpack_require__(/*! ../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js")(content, options);
-
-if (content.locals) {
-  module.exports = content.locals;
-}
-
-
-/***/ }),
-
-/***/ "./src/font/weathericons-regular-webfont.eot":
-/*!***************************************************!*\
-  !*** ./src/font/weathericons-regular-webfont.eot ***!
-  \***************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "fonts/weathericons-regular-webfont.eot");
-
-/***/ }),
-
-/***/ "./src/font/weathericons-regular-webfont.svg":
-/*!***************************************************!*\
-  !*** ./src/font/weathericons-regular-webfont.svg ***!
-  \***************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "fonts/weathericons-regular-webfont.svg");
-
-/***/ }),
-
-/***/ "./src/font/weathericons-regular-webfont.ttf":
-/*!***************************************************!*\
-  !*** ./src/font/weathericons-regular-webfont.ttf ***!
-  \***************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "fonts/weathericons-regular-webfont.ttf");
-
-/***/ }),
-
-/***/ "./src/font/weathericons-regular-webfont.woff":
-/*!****************************************************!*\
-  !*** ./src/font/weathericons-regular-webfont.woff ***!
-  \****************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "fonts/weathericons-regular-webfont.woff");
-
-/***/ }),
-
-/***/ "./src/font/weathericons-regular-webfont.woff2":
-/*!*****************************************************!*\
-  !*** ./src/font/weathericons-regular-webfont.woff2 ***!
-  \*****************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "fonts/weathericons-regular-webfont.woff2");
-
-/***/ }),
-
 /***/ "./src/index.js":
 /*!**********************!*\
   !*** ./src/index.js ***!
@@ -20013,20 +18686,16 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _trevoreyre_autocomplete_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @trevoreyre/autocomplete-vue */ "./node_modules/@trevoreyre/autocomplete-vue/dist/autocomplete.esm.js");
-/* harmony import */ var _vue_router_index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./vue/router/index */ "./src/vue/router/index.js");
-/* harmony import */ var _vue_store_store__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./vue/store/store */ "./src/vue/store/store.js");
-/* harmony import */ var _trevoreyre_autocomplete_vue_dist_style_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @trevoreyre/autocomplete-vue/dist/style.css */ "./node_modules/@trevoreyre/autocomplete-vue/dist/style.css");
-/* harmony import */ var _trevoreyre_autocomplete_vue_dist_style_css__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_trevoreyre_autocomplete_vue_dist_style_css__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _css_style_css__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./css/style.css */ "./src/css/style.css");
-/* harmony import */ var _css_style_css__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_css_style_css__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var _css_weather_icons_css__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./css/weather-icons.css */ "./src/css/weather-icons.css");
-/* harmony import */ var _css_weather_icons_css__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_css_weather_icons_css__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _trevoreyre_autocomplete_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @trevoreyre/autocomplete-vue */ "./node_modules/@trevoreyre/autocomplete-vue/dist/autocomplete.esm.js");
+/* harmony import */ var _vue_router_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./vue/router/index */ "./src/vue/router/index.js");
+/* harmony import */ var _vue_views_main_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./vue/views/main.vue */ "./src/vue/views/main.vue");
+/* harmony import */ var _trevoreyre_autocomplete_vue_dist_style_css__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @trevoreyre/autocomplete-vue/dist/style.css */ "./node_modules/@trevoreyre/autocomplete-vue/dist/style.css");
+/* harmony import */ var _trevoreyre_autocomplete_vue_dist_style_css__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_trevoreyre_autocomplete_vue_dist_style_css__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _css_style_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./css/style.css */ "./src/css/style.css");
+/* harmony import */ var _css_style_css__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_css_style_css__WEBPACK_IMPORTED_MODULE_6__);
 /* eslint-disable import/no-named-as-default-member */
-
 
 
  // eslint-disable-next-line import/no-named-as-default
@@ -20035,13 +18704,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('Autocomplete', _trevoreyre_autocomplete_vue__WEBPACK_IMPORTED_MODULE_3__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype.$http = axios__WEBPACK_IMPORTED_MODULE_2___default.a;
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('Autocomplete', _trevoreyre_autocomplete_vue__WEBPACK_IMPORTED_MODULE_2__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype.$http = axios__WEBPACK_IMPORTED_MODULE_1___default.a;
 new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
-  store: _vue_store_store__WEBPACK_IMPORTED_MODULE_5__["default"],
-  router: _vue_router_index__WEBPACK_IMPORTED_MODULE_4__["default"]
+  router: _vue_router_index__WEBPACK_IMPORTED_MODULE_3__["default"]
 }).$mount('#app');
 
 /***/ }),
@@ -20067,41 +18733,11 @@ const routes = [{
   path: '/',
   name: 'Main',
   component: _views_main_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
-}, {
-  path: '/inventario',
-  name: 'Inventario',
-  // route level code-splitting
-  // this generates a separate chunk (about.[hash].js) for this route
-  // which is lazy-loaded when the route is visited.
-  component: () => __webpack_require__.e(/*! import() | inventario */ "inventario").then(__webpack_require__.bind(null, /*! ../views/inventario.vue */ "./src/vue/views/inventario.vue"))
 }];
 const router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   routes
 });
 /* harmony default export */ __webpack_exports__["default"] = (router);
-
-/***/ }),
-
-/***/ "./src/vue/store/store.js":
-/*!********************************!*\
-  !*** ./src/vue/store/store.js ***!
-  \********************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.js");
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-
-
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
-/* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
-  state: {},
-  mutations: {},
-  actions: {}
-}));
 
 /***/ }),
 

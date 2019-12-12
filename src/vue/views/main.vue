@@ -4,70 +4,104 @@
       <div class="row1">
         <ul>
           <li>
-            <i class="wi wi-day-sunny"></i>
+            <img :src="icon" />
           </li>
-          <li>1 grado</li>
-          <li>cloundly</li>
+          <li>{{data.weather[0].description}}</li>
+          <li>{{data.main.temp}}</li>
         </ul>
         <ul>
-          <li>Wendesday</li>
-          <li>11 Dec 2019</li>
-          <li>London, gb</li>
+          <li>{{day}}</li>
+          <li>{{date}}</li>
+          <li>{{data.name}}</li>
         </ul>
       </div>
       <div class="row2">
         <ul>
           <li>
-            <span>ROUNN</span>
-            <span>Low</span>
+            <span>PRESSURE</span>
+            <span>{{data.main.pressure}}</span>
           </li>
           <li>
-            <span>HOMUDITY</span>
-            <span>85%</span>
+            <span>HUMIDITY85</span>
+            <span>{{data.main.humidity}}</span>
           </li>
           <li>
             <span>WIND</span>
-            <span>2,.1KM</span>
+            <span>{{data.wind.speed}} km/h</span>
           </li>
         </ul>
       </div>
       <div class="row3">
         <ul>
-          <div>min temp</div>
-          <div>max temp</div>
+          <div>
+            <span>Min. Temp</span>
+            <samp>{{data.main.temp_min}}</samp>
+          </div>
+          <div>
+            <span>Max. Temp</span>
+            <samp>{{data.main.temp_max}}</samp>
+          </div>
         </ul>
       </div>
-      <Autocomplete class="autocomp" :search="search" @submit="submit" placeholder="Search country"></Autocomplete>
+      <Autocomplete class="autocomp" :search="search"
+       @submit="submit" placeholder="Search country"/>
     </div>
   </div>
 </template >
 
 <script>
 import countries from '../../assets/countries.json';
-import icons from '../../assets/icons.json';
 
 export default {
   data: () => ({
-    data: [],
+    data: {
+      main: {},
+      weather: [{}],
+      wind: {},
+    },
     countries,
-    icons,
+    icon: null,
   }),
   methods: {
     search(input) {
       if (input.length < 1) {
         return [];
       }
-      return this.countries.filter((country) => country.toLowerCase().startsWith(input.toLowerCase()));
+      return this.countries
+        .filter((country) => country
+          .toLowerCase().startsWith(input.toLowerCase()));
     },
     submit(v) {
-      console.log(v);
       this.$http
         .post(
-          `http://api.openweathermap.org/data/2.5/weather?q=${v}&APPID=ccf0280f67bc164a41011b8b774bbb8d`,
+          `http://api.openweathermap.org/data/2.5/weather?q=${v}&units=metric&APPID=ccf0280f67bc164a41011b8b774bbb8d`,
         )
         .then((resp) => {
-          console.log(resp.data);
+          this.$set(this, 'data', resp.data);
+          this.icon = `http://openweathermap.org/img/wn/${this.data.weather[0].icon}@2x.png`;
         });
+    },
+  },
+  mounted() {
+    this.submit('arequipa');
+  },
+  computed: {
+    day() {
+      return new Date().toLocaleString('en-us', { weekday: 'long' });
+    },
+    date() {
+      let today = new Date();
+      let dd = today.getDate();
+      let mm = today.getMonth() + 1;
+      const yyyy = today.getFullYear();
+      if (dd < 10) {
+        dd = `0${dd}`;
+      }
+      if (mm < 10) {
+        mm = `0${mm}`;
+      }
+      today = `${dd}/${mm}/${yyyy}`;
+      return today;
     },
   },
 };
