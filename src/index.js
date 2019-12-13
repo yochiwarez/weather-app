@@ -1,6 +1,8 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-undef */
 /* eslint-disable import/no-unresolved */
+/* eslint arrow-parens: ["error", "as-needed"] */
+
 import Autocomplete from '@trevoreyre/autocomplete-js';
 import axios from 'axios';
 import main from './templates/main.html';
@@ -18,7 +20,7 @@ celcEls[0].checked = true;
 
 const autoText = content.querySelector('.autocomplete-input');
 
-const selectEl = (ref) => content.querySelector(`[a-cont="${ref}"]`);
+const selectEl = ref => content.querySelector(`[a-cont="${ref}"]`);
 const tempEl = selectEl('temp');
 const iconEl = selectEl('icon');
 const descEl = selectEl('desc');
@@ -32,7 +34,7 @@ const minTempEl = selectEl('minTemp');
 const maxTempEl = selectEl('maxTemp');
 
 
-const updateData = (data) => {
+const updateData = data => {
   const tempConv = (temp, flag = false) => {
     const tmp = data.temp;
     return flag ? `${tmp} &#8451;` : `${tmp * (9 / 5) + 32} &#8457;`;
@@ -70,12 +72,12 @@ const updateData = (data) => {
   maxTempEl.innerHTML = maxTemp();
 };
 
-const process = (q) => {
+const process = q => {
   axios
     .post(
       `https://api.openweathermap.org/data/2.5/weather?q=${q}&units=metric&APPID=ccf0280f67bc164a41011b8b774bbb8d`,
     )
-    .then((resp) => {
+    .then(resp => {
       const { data } = resp;
       const icon = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
 
@@ -93,7 +95,7 @@ const process = (q) => {
     });
 };
 
-celcEls.forEach((el) => {
+celcEls.forEach(el => {
   el.onclick = () => {
     if (autoText.value) {
       process(autoText.value);
@@ -105,12 +107,12 @@ celcEls.forEach((el) => {
 
 // eslint-disable-next-line no-new
 new Autocomplete('#autocomplete', {
-  search: (input) => {
+  search: input => {
     if (input.length < 1) { return []; }
-    return countries.filter((country) => country.toLowerCase()
+    return countries.filter(country => country.toLowerCase()
       .startsWith(input.toLowerCase()));
   },
-  onSubmit: (result) => {
+  onSubmit: result => {
     process(result);
   },
 });
