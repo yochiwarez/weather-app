@@ -23,7 +23,7 @@ Use everything we’ve been discussing to create a weather forecast site using t
 ## Built With
 
 - webpack
-- vuejs
+- javascript
 
 ## Live Demo
 
