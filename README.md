@@ -31,11 +31,11 @@ Use everything we’ve been discussing to create a weather forecast site using t
 
 ## Getting Started
 
-Run this commands:
-git clone git@github.com:yochiwarez/weather-app.git
-cd weather-app
-npm install
-npm run test
+Run this commands: <br>
+git clone git@github.com:yochiwarez/weather-app.git <br>
+cd weather-app <br>
+npm install <br>
+npm run test <br>
 
 and go to http://localhost:8080/
 
