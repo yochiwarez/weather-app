@@ -4,7 +4,6 @@
 /* eslint arrow-parens: ["error", "as-needed"] */
 
 import Autocomplete from '@trevoreyre/autocomplete-js';
-import axios from 'axios';
 import main from './templates/main.html';
 import './css/style.css';
 import './css/ac.css';
@@ -37,7 +36,7 @@ const maxTempEl = selectEl('maxTemp');
 const updateData = data => {
   const tempConv = (temp, flag = false) => {
     const tmp = data.temp;
-    return flag ? `${tmp} &#8451;` : `${tmp * (9 / 5) + 32} &#8457;`;
+    return flag ? `${tmp} &#8451;` : `${tmp} &#8457;`;
   };
   const temp = () => tempConv(data.temp, celcEls[0].checked);
   const minTemp = () => tempConv(data.minTemp, celcEls[0].checked);
@@ -72,15 +71,12 @@ const updateData = data => {
   maxTempEl.innerHTML = maxTemp();
 };
 
-const process = q => {
-  axios
-    .post(
-      `https://api.openweathermap.org/data/2.5/weather?q=${q}&units=metric&APPID=ccf0280f67bc164a41011b8b774bbb8d`,
-    )
-    .then(resp => {
-      const { data } = resp;
+const process = (q, cel = true) => {
+  const u = cel ? '&units=metric' : '&units=imperial';
+  fetch(`https://api.openweathermap.org/data/2.5/weather?q=${q}${u}&APPID=ccf0280f67bc164a41011b8b774bbb8d`)
+    .then(resp => resp.json())
+    .then(data => {
       const icon = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
-
       updateData({
         temp: data.main.temp,
         icon,
@@ -92,15 +88,19 @@ const process = q => {
         minTemp: data.main.temp_min,
         maxTemp: data.main.temp_max,
       });
+    })
+    .catch(() => {
+      autoText.value = 'peru';
+      process(defLocat);
     });
 };
 
 celcEls.forEach(el => {
   el.onclick = () => {
     if (autoText.value) {
-      process(autoText.value);
+      process(autoText.value, celcEls[0].checked);
     } else {
-      process(defLocat);
+      process(defLocat, celcEls[0].checked);
     }
   };
 });
