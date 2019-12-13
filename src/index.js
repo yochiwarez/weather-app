@@ -11,21 +11,12 @@ import countries from './assets/countries.json';
 const content = document.querySelector('div.content');
 content.innerHTML = main;
 
-const defLocat = "peru"
+const defLocat = 'peru';
 
 const celcEls = content.querySelectorAll('input[name="unit"]');
 celcEls[0].checked = true;
 
 const autoText = content.querySelector('.autocomplete-input');
-celcEls.forEach((el) => {
-  el.onclick = () => {
-    if(autoText.value){
-      process(autoText.value);
-    } else {
-      process(defLocat)
-    }
-  };
-});
 
 const selectEl = (ref) => content.querySelector(`[a-cont="${ref}"]`);
 const tempEl = selectEl('temp');
@@ -42,20 +33,13 @@ const maxTempEl = selectEl('maxTemp');
 
 
 const updateData = (data) => {
-
   const tempConv = (temp, flag = false) => {
     const tmp = data.temp;
     return flag ? `${tmp} &#8451;` : `${tmp * (9 / 5) + 32} &#8457;`;
   };
-  const temp = () => {
-    return tempConv(data.temp, celcEls[0].checked);
-  };
-  const minTemp = () => {
-    return tempConv(data.minTemp, celcEls[0].checked);
-  };
-  const maxTemp = () => {
-    return tempConv(data.maxTemp, celcEls[0].checked);
-  };
+  const temp = () => tempConv(data.temp, celcEls[0].checked);
+  const minTemp = () => tempConv(data.minTemp, celcEls[0].checked);
+  const maxTemp = () => tempConv(data.maxTemp, celcEls[0].checked);
 
   const day = () => new Date().toLocaleString('en-us', { weekday: 'long' });
   const date = () => {
@@ -81,33 +65,44 @@ const updateData = (data) => {
   locatEl.textContent = data.locat;
   pressEl.textContent = data.pressure;
   humidEl.textContent = data.humidity;
-  windEl.textContent = data.wind + " KM/H";
+  windEl.textContent = `${data.wind} KM/H`;
   minTempEl.innerHTML = minTemp();
   maxTempEl.innerHTML = maxTemp();
 };
 
 const process = (q) => {
   axios
-  .post(
-    `https://api.openweathermap.org/data/2.5/weather?q=${q}&units=metric&APPID=ccf0280f67bc164a41011b8b774bbb8d`,
-  )
-  .then((resp) => {
-    const { data } = resp;
-    const icon = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+    .post(
+      `https://api.openweathermap.org/data/2.5/weather?q=${q}&units=metric&APPID=ccf0280f67bc164a41011b8b774bbb8d`,
+    )
+    .then((resp) => {
+      const { data } = resp;
+      const icon = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
 
-    updateData({
-      temp: data.main.temp,
-      icon,
-      desc: data.weather[0].description,
-      locat: data.name,
-      pressure: data.main.pressure,
-      humidity: data.main.humidity,
-      wind: data.wind.speed,
-      minTemp: data.main.temp_min,
-      maxTemp: data.main.temp_max
+      updateData({
+        temp: data.main.temp,
+        icon,
+        desc: data.weather[0].description,
+        locat: data.name,
+        pressure: data.main.pressure,
+        humidity: data.main.humidity,
+        wind: data.wind.speed,
+        minTemp: data.main.temp_min,
+        maxTemp: data.main.temp_max,
+      });
     });
-  });
-}
+};
+
+celcEls.forEach((el) => {
+  el.onclick = () => {
+    if (autoText.value) {
+      process(autoText.value);
+    } else {
+      process(defLocat);
+    }
+  };
+});
+
 // eslint-disable-next-line no-new
 new Autocomplete('#autocomplete', {
   search: (input) => {
