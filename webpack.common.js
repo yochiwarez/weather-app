@@ -1,13 +1,12 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable import/no-unresolved */
-const { VueLoaderPlugin } = require('vue-loader');
 const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: path.join(__dirname, 'src', 'index'),
-  watch: true,
+  watch: false,
   module: {
     rules: [{
       test: /.jsx?$/,
@@ -46,10 +45,6 @@ module.exports = {
       },
     },
     {
-      test: /\.vue$/,
-      loader: 'vue-loader',
-    },
-    {
       test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
       use: [
         {
@@ -61,10 +56,18 @@ module.exports = {
         },
       ],
     },
+    {
+      test: /\.(html)$/,
+      use: {
+        loader: 'html-loader',
+        options: {
+          attrs: [':data-src'],
+        },
+      },
+    },
     ],
   },
   plugins: [
-    new VueLoaderPlugin(),
     new CleanWebpackPlugin({
       cleanOnceBeforeBuildPatterns: ['**/*', '!php*', '!php/**/*', '!.git*', '!.git/**/*', '!robots.txt'],
     }),
