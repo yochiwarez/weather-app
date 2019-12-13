@@ -31,7 +31,13 @@ Use everything we’ve been discussing to create a weather forecast site using t
 
 ## Getting Started
 
-i need to do it again xD
+Run this commands:
+git clone git@github.com:yochiwarez/weather-app.git
+cd weather-app
+npm install
+npm run test
+
+and go to http://localhost:8080/
 
 <!-- LICENSE -->
 ## License
@@ -39,9 +45,8 @@ i need to do it again xD
 Distributed under the GNU General Public License v3.0. See `LICENSE` for more information.
 
 <!-- CONTACT -->
-## Contact
+## Author
 
-* Rinor Ajeti [Github](https://github.com/R4Ajeti), [Twitter](https://twitter.com/devdiegogo)
 * Jorge Apaza Merma: [Github](https://github.com/yochiwarez), [Twitter]()
 
 Project Link: [https://www.theodinproject.com/courses/ruby-on-rails/lessons/forms#null](https://www.theodinproject.com/courses/ruby-on-rails/lessons/forms#null)
