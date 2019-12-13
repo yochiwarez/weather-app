@@ -5,8 +5,7 @@
   </a>
   <br>
   <br>
-  <h3 align="center">Tic Tic Toe</h3>
-
+  <h3 align="center">Weather App</h3>
   <p align="center">
     Javascript Project
   </p>
@@ -14,16 +13,31 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-We’re making a Tic Tac Toe game you can play in your browser!
+
+Use everything we’ve been discussing to create a weather forecast site using the weather API from the previous lesson. You should be able to search for a specific location and toggle displaying the data in Fahrenheit or Celsius.
 
 
 * #### [Assignment description](https://www.theodinproject.com/courses/ruby-on-rails/lessons/forms#null)	
 <!-- * #### [Source page](https://www.newsweek.com/) -->
 
-<!-- ### Built With
+## Built With
 
-* [Bootstrap](https://getbootstrap.com)
-* [JQuery](https://jquery.com) -->
+- webpack
+- javascript
+
+## Live Demo
+
+[Live Demo Link](https://yochiwarez.github.io/microverse/weatherapp/) 
+
+## Getting Started
+
+Run this commands: <br>
+git clone git@github.com:yochiwarez/weather-app.git <br>
+cd weather-app <br>
+npm install <br>
+npm run test <br>
+
+and go to http://localhost:8080/
 
 <!-- LICENSE -->
 ## License
@@ -31,9 +45,8 @@ We’re making a Tic Tac Toe game you can play in your browser!
 Distributed under the GNU General Public License v3.0. See `LICENSE` for more information.
 
 <!-- CONTACT -->
-## Contact
+## Author
 
-* Rinor Ajeti [Github](https://github.com/R4Ajeti), [Twitter](https://twitter.com/devdiegogo)
 * Jorge Apaza Merma: [Github](https://github.com/yochiwarez), [Twitter]()
 
 Project Link: [https://www.theodinproject.com/courses/ruby-on-rails/lessons/forms#null](https://www.theodinproject.com/courses/ruby-on-rails/lessons/forms#null)
